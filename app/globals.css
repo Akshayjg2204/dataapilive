@@ -1,26 +1,183 @@
 @import "tailwindcss";
 
+@theme {
+  --font-sans: var(--font-inter);
+  --font-mono: var(--font-jetbrains-mono);
+
+  --color-login-left-bg: var(--login-left-bg);
+  --color-login-primary: var(--login-primary);
+  --color-login-primary-dark: var(--login-primary-dark);
+  --color-login-primary-darker: var(--login-primary-darker);
+
+  --color-homepage-background: var(--homepage-background);
+  --color-homepage-background-secondary: var(--homepage-background-secondary);
+  --color-homepage-text-primary: var(--homepage-text-primary);
+  --color-homepage-text-secondary: var(--homepage-text-secondary);
+  --color-homepage-primary: var(--homepage-primary);
+  --color-homepage-primary-dark: var(--homepage-primary-dark);
+  --color-homepage-primary-light: var(--homepage-primary-light);
+  --color-homepage-accent: var(--homepage-accent);
+  --color-homepage-surface: var(--homepage-surface);
+  --color-homepage-surface-hover: var(--homepage-surface-hover);
+  --color-homepage-border: var(--homepage-border);
+  --color-homepage-border-light: var(--homepage-border-light);
+  --color-homepage-glow: var(--homepage-glow);
+  --color-homepage-card-bg: var(--homepage-card-bg);
+  --color-homepage-input-bg: var(--homepage-input-bg);
+  --color-homepage-code-bg: var(--homepage-code-bg);
+
+  --color-footer-background: var(--footer-background);
+  --color-footer-text-primary: var(--footer-text-primary);
+  --color-footer-text-secondary: var(--footer-text-secondary);
+  --color-footer-border: var(--footer-border);
+  --color-footer-border-light: var(--footer-border-light);
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --font-inter: "Inter", sans-serif;
+  --font-jetbrains-mono: "JetBrains Mono", monospace;
+
+  /* Login Colors */
+  --login-left-bg: linear-gradient(135deg, #0a0a1a 0%, #1a1a2e 50%, #16213e 100%);
+  --login-primary: #8b5cf6;
+  --login-primary-dark: #7c3aed;
+  --login-primary-darker: #591991;
+  --login-error: #ef4444;
+
+  /* Navbar Colors */
+  --navbar-bg: rgba(15, 7, 40, .95);
+  --navbar-bg-solid: #0f0728;
+
+  /* Homepage Colors */
+  --homepage-background: #130a32;
+  --homepage-background-secondary: #1a0f3a;
+  --homepage-text-primary: #ffffff;
+  --homepage-text-secondary: #a0a0a0;
+  --homepage-primary: #8b5cf6;
+  --homepage-primary-dark: #7c3aed;
+  --homepage-primary-light: #a78bfa;
+  --homepage-accent: #00e5d0;
+  --homepage-surface: rgba(255, 255, 255, .05);
+  --homepage-surface-hover: rgba(255, 255, 255, .08);
+  --homepage-border: rgba(139, 92, 246, .2);
+  --homepage-border-light: rgba(139, 92, 246, .1);
+  --homepage-glow: rgba(139, 92, 246, .3);
+  --homepage-card-bg: rgba(26, 15, 58, .8);
+  --homepage-input-bg: rgba(255, 255, 255, .05);
+  --homepage-code-bg: rgba(0, 0, 0, .3);
+
+  /* Footer Colors */
+  --footer-background: linear-gradient(180deg, #0f0728 0%, #1a0f3a 100%);
+  --footer-text-primary: #ffffff;
+  --footer-text-secondary: #a0a0a0;
+  --footer-border: rgba(139, 92, 246, .15);
+  --footer-border-light: rgba(139, 92, 246, .08);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+html.lenis,
+html.lenis body {
+  height: auto;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--homepage-background);
+  color: var(--homepage-text-primary);
+}
+
+/* Custom Animations */
+@keyframes fade-up {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translate(0) scale(1);
+  }
+
+  33% {
+    transform: translate(30px, -30px) scale(1.1);
+  }
+
+  66% {
+    transform: translate(-30px, 30px) scale(0.9);
+  }
+}
+
+@keyframes pulse {
+
+  0%,
+  100% {
+    opacity: 1;
+    box-shadow: 0 0 0 0 rgba(139, 92, 246, 0.7);
+  }
+
+  50% {
+    opacity: 0.6;
+    box-shadow: 0 0 0 6px rgba(139, 92, 246, 0);
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes gradient-shift {
+
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.8s ease-out forwards;
+}
+
+.animate-float {
+  animation: float 20s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.animate-spin-slow {
+  animation: spin 3s linear infinite;
+}
+
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradient-shift 5s ease infinite;
 }
