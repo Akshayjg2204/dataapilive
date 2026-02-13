@@ -6,7 +6,7 @@ export default function Footer() {
         <footer className="relative bg-[#050210] border-t border-white/5 pt-20 pb-10 px-6 overflow-hidden">
             <div className="max-w-[1200px] mx-auto relative z-10">
                 {/* Top Section */}
-                <div className="grid lg:grid-cols-2 gap-12 lg:gap-24 mb-20">
+                <div className="grid lg:grid-cols-2 gap-12 lg:gap-24 mb-10 lg:mb-20">
                     {/* Brand */}
                     <div className="space-y-6">
                         <Link href="/" className="flex items-center gap-2">
@@ -59,7 +59,7 @@ export default function Footer() {
                 <div className="w-full h-px bg-white/5 mb-16" />
 
                 {/* Middle Section: Socials & Newsletter */}
-                <div className="grid lg:grid-cols-2 gap-12 items-center mb-20">
+                <div className="grid lg:grid-cols-2 gap-12 items-center mb-10 lg:mb-20">
                     {/* Socials */}
                     <div>
                         <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-6">Follow Us</h4>

@@ -1,7 +1,10 @@
 import Link from "next/link";
-import { Moon, Sun } from "lucide-react";
+import { Moon, Sun, Menu, X } from "lucide-react";
+import { useState } from "react";
 
 export default function Navbar() {
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+
     return (
         <nav className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 backdrop-blur-md bg-[rgba(15,7,40,0.95)] border-b border-[var(--homepage-border-light)]">
             <div className="max-w-[1400px] mx-auto px-6 md:px-12 h-[85px] flex items-center justify-between">
@@ -57,12 +60,55 @@ export default function Navbar() {
 
                     <Link
                         href="/signup"
-                        className="flex items-center px-6 py-2.5 text-sm font-bold text-white bg-gradient-to-br from-[var(--homepage-primary)] to-[var(--homepage-primary-dark)] rounded-xl shadow-[0_4px_14px_rgba(89,25,145,0.4)] hover:shadow-[0_6px_20px_rgba(89,25,145,0.6)] hover:-translate-y-0.5 transition-all duration-300"
+                        className="hidden md:flex items-center px-6 py-2.5 text-sm font-bold text-white bg-gradient-to-br from-[var(--homepage-primary)] to-[var(--homepage-primary-dark)] rounded-xl shadow-[0_4px_14px_rgba(89,25,145,0.4)] hover:shadow-[0_6px_20px_rgba(89,25,145,0.6)] hover:-translate-y-0.5 transition-all duration-300"
                     >
                         Get Started
                     </Link>
+
+                    {/* Mobile Menu Button */}
+                    <button
+                        className="md:hidden p-2 text-white hover:text-[var(--homepage-primary)] transition-colors"
+                        onClick={() => setIsMenuOpen(!isMenuOpen)}
+                    >
+                        {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
+                    </button>
                 </div>
             </div>
+
+            {/* Mobile Menu Overlay */}
+            {isMenuOpen && (
+                <div className="md:hidden fixed top-[85px] left-0 right-0 bottom-0 bg-[#0f0728] z-40 p-6 overflow-y-auto animate-fade-in border-t border-[var(--homepage-border-light)]">
+                    <div className="flex flex-col gap-4">
+                        {["Home", "About", "Services", "Pricing", "FAQ", "Contact"].map((item) => (
+                            <Link
+                                key={item}
+                                href={`#${item.toLowerCase()}`}
+                                className="text-lg font-semibold text-[var(--homepage-text-secondary)] hover:text-white py-3 border-b border-[var(--homepage-border-light)] transition-colors"
+                                onClick={() => setIsMenuOpen(false)}
+                            >
+                                {item}
+                            </Link>
+                        ))}
+                        <div className="flex flex-col gap-4 mt-6">
+                            <Link
+                                href="/login"
+                                className="flex items-center justify-center px-6 py-3 text-base font-semibold text-[var(--homepage-primary-light)] bg-[rgba(139,92,246,0.15)] border border-[var(--homepage-border)] rounded-xl hover:bg-[rgba(139,92,246,0.25)] transition-all duration-300"
+                                onClick={() => setIsMenuOpen(false)}
+                            >
+                                Log In
+                            </Link>
+                            <Link
+                                href="/signup"
+                                className="flex items-center justify-center px-6 py-3 text-base font-bold text-white bg-gradient-to-br from-[var(--homepage-primary)] to-[var(--homepage-primary-dark)] rounded-xl shadow-[0_4px_14px_rgba(89,25,145,0.4)] transition-all duration-300"
+                                onClick={() => setIsMenuOpen(false)}
+                            >
+                                Get Started
+                            </Link>
+                        </div>
+                    </div>
+                </div>
+            )}
         </nav>
     );
 }
+

@@ -4,7 +4,7 @@ import DemoConsole from "./DemoConsole";
 
 export default function Hero() {
     return (
-        <section className="relative w-full min-h-[calc(100vh-80px)] pt-[120px] pb-20 overflow-hidden flex flex-col items-center justify-center text-center px-6">
+        <section className="relative w-full min-h-[calc(100vh-80px)] pt-24 md:pt-[120px] pb-20 overflow-hidden flex flex-col items-center justify-center text-center px-6">
             {/* Background Gradients/Orbs */}
             <div className="absolute top-[-200px] right-[-100px] w-[500px] h-[500px] rounded-full bg-[radial-gradient(circle,rgba(139,92,246,0.3),transparent_70%)] blur-[100px] animate-float" />
             <div className="absolute bottom-[-150px] left-[-100px] w-[400px] h-[400px] rounded-full bg-[radial-gradient(circle,rgba(0,229,208,0.2),transparent_70%)] blur-[100px] animate-float opacity-70" style={{ animationDelay: "5s" }} />
