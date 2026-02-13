@@ -48,7 +48,7 @@ export default function Footer() {
                         </div>
                         <div>
                             <h4 className="font-bold text-white mb-6">Get in Touch</h4>
-                            <a href="mailto:connect@dataapi.live" className="flex items-center gap-2 px-4 py-2 rounded-lg bg-white/5 border border-white/10 text-gray-300 hover:text-white hover:border-[#8b5cf6] transition-all group">
+                            <a href="mailto:connect@dataapi.live" className="flex items-center gap-2 px-4 py-2 rounded-lg bg-white/5 border border-white/10 text-gray-300 hover:text-white hover:border-[#8b5cf6] transition-all group break-all">
                                 <Mail className="w-4 h-4 text-[#8b5cf6]" />
                                 <span className="text-sm">connect@dataapi.live</span>
                             </a>

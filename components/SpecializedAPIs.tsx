@@ -88,7 +88,7 @@ export default function SpecializedAPIs() {
                 </div>
 
                 {/* Performance Metrics Dashboard */}
-                <div className="bg-[#0f0718] border border-white/10 rounded-3xl p-8 md:p-12" data-aos="fade-up">
+                <div className="bg-[#0f0718] border border-white/10 rounded-3xl p-6 md:p-12" data-aos="fade-up">
                     <div className="flex items-center justify-between mb-8">
                         <h3 className="text-2xl font-bold text-white">Performance Metrics</h3>
                         <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 text-xs font-bold uppercase border border-emerald-500/20">
@@ -99,7 +99,7 @@ export default function SpecializedAPIs() {
 
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                         {metrics.map((metric, idx) => (
-                            <div key={idx} className="bg-white/5 rounded-2xl p-6 border border-white/5 hover:border-white/10 transition-colors group">
+                            <div key={idx} className="bg-white/5 rounded-2xl p-4 md:p-6 border border-white/5 hover:border-white/10 transition-colors group">
                                 <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#1a152e] to-[#2a2540] flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
                                     <metric.icon className="w-5 h-5 text-[#8b5cf6]" />
                                 </div>

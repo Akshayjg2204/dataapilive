@@ -22,14 +22,14 @@ export default function DemoConsole() {
                 {/* Controls */}
                 <div className="flex flex-col md:flex-row items-center justify-between gap-4">
                     {/* Tabs */}
-                    <div className="flex items-center gap-1 bg-[#0a051e] p-1.5 rounded-xl border border-[var(--homepage-border-light)] w-full md:w-auto overflow-x-auto">
+                    <div className="flex flex-wrap md:flex-nowrap justify-center md:justify-start items-center gap-1 bg-[#0a051e] p-1.5 rounded-xl border border-[var(--homepage-border-light)] w-full md:w-auto">
                         {["People", "Products", "Articles", "Business"].map((tab) => (
                             <button
                                 key={tab}
                                 onClick={() => setActiveTab(tab)}
                                 className={`px-6 py-2 rounded-lg text-sm font-semibold transition-all duration-300 ${activeTab === tab
-                                        ? "bg-[rgba(139,92,246,0.2)] text-white shadow-sm"
-                                        : "text-[var(--homepage-text-secondary)] hover:text-white hover:bg-white/5"
+                                    ? "bg-[rgba(139,92,246,0.2)] text-white shadow-sm"
+                                    : "text-[var(--homepage-text-secondary)] hover:text-white hover:bg-white/5"
                                     }`}
                             >
                                 {tab}
