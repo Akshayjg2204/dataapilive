@@ -1,10 +1,19 @@
 "use client";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Moon, Sun, Menu, X } from "lucide-react";
 import { useState } from "react";
+import { motion } from "framer-motion";
 
 export default function Navbar() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const pathname = usePathname();
+
+    const isActive = (item: string) => {
+        if (item === "Home" && pathname === "/") return true;
+        if (item === "About" && pathname === "/about") return true;
+        return false;
+    };
 
     return (
         <nav className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 backdrop-blur-md bg-[rgba(15,7,40,0.95)] border-b border-[var(--homepage-border-light)]">
@@ -28,16 +37,27 @@ export default function Navbar() {
                     {["Home", "About", "Services", "Pricing", "FAQ", "Contact"].map((item) => (
                         <Link
                             key={item}
-                            href={`#${item.toLowerCase()}`}
-                            className={`px-5 py-2.5 text-sm font-semibold rounded-xl transition-all duration-300 ${item === "Home"
-                                ? "bg-[rgba(139,92,246,0.2)] text-white shadow-[0_2px_8px_rgba(89,25,145,0.2)]"
-                                : "text-[var(--homepage-text-secondary)] hover:text-white hover:bg-[rgba(139,92,246,0.1)]"
+                            href={item === "Home" ? "/" : item === "About" ? "/about" : `/#${item.toLowerCase()}`}
+                            className={`relative px-5 py-2.5 text-sm font-semibold rounded-xl transition-all duration-300 ${isActive(item)
+                                ? "text-white shadow-[0_2px_8px_rgba(89,25,145,0.2)]"
+                                : "text-[var(--homepage-text-secondary)] hover:text-white"
                                 }`}
                         >
-                            <span className="relative inline-block">
+                            {isActive(item) && (
+                                <motion.span
+                                    layoutId="navbar-active-bg"
+                                    className="absolute inset-0 bg-[rgba(139,92,246,0.2)] rounded-xl"
+                                    transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                                />
+                            )}
+                            <span className="relative z-10">
                                 {item}
-                                {item === "Home" && (
-                                    <span className="absolute -bottom-1 left-0 w-full h-[3px] bg-gradient-to-r from-[var(--homepage-primary)] to-[var(--homepage-primary-light)] rounded-full shadow-[0_0_8px_var(--homepage-primary)]"></span>
+                                {isActive(item) && (
+                                    <motion.span
+                                        layoutId="navbar-active-underline"
+                                        className="absolute -bottom-1 left-0 w-full h-[3px] bg-gradient-to-r from-[var(--homepage-primary)] to-[var(--homepage-primary-light)] rounded-full shadow-[0_0_8px_var(--homepage-primary)]"
+                                        transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                                    />
                                 )}
                             </span>
                         </Link>
@@ -83,7 +103,7 @@ export default function Navbar() {
                         {["Home", "About", "Services", "Pricing", "FAQ", "Contact"].map((item) => (
                             <Link
                                 key={item}
-                                href={`#${item.toLowerCase()}`}
+                                href={item === "Home" ? "/" : item === "About" ? "/about" : `/#${item.toLowerCase()}`}
                                 className="text-lg font-semibold text-[var(--homepage-text-secondary)] hover:text-white py-3 border-b border-[var(--homepage-border-light)] transition-colors"
                                 onClick={() => setIsMenuOpen(false)}
                             >

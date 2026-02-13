@@ -10,7 +10,6 @@ import Footer from "@/components/Footer";
 export default function Home() {
   return (
     <main className="min-h-screen bg-[var(--homepage-background)] text-white selection:bg-[var(--homepage-primary)] selection:text-white">
-      <Navbar />
       <div>
         <Hero />
         <ComparisonSection />
@@ -19,7 +18,6 @@ export default function Home() {
         <SpecializedAPIs />
         <ScalableExtraction />
       </div>
-      <Footer />
     </main>
   );
 }

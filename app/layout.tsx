@@ -3,6 +3,8 @@ import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
 import AOSInit from "@/components/AOSInit";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -31,7 +33,9 @@ export default function RootLayout({
       >
         <AOSInit />
         <SmoothScroll />
+        <Navbar />
         {children}
+        <Footer />
       </body>
     </html>
   );
