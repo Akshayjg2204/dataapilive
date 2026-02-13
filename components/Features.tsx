@@ -1,3 +1,5 @@
+"use client";
+import React from "react";
 import { Shield, Zap, Globe, Code, Layers, MousePointer } from "lucide-react";
 
 const features = [
@@ -40,6 +42,12 @@ const features = [
 ];
 
 export default function Features() {
+    const [activeIndex, setActiveIndex] = React.useState<number | null>(null);
+
+    const handleInteraction = (index: number) => {
+        setActiveIndex(activeIndex === index ? null : index);
+    };
+
     return (
         <section id="services" className="py-[140px] relative overflow-hidden">
             {/* Background Mesh */}
@@ -57,29 +65,39 @@ export default function Features() {
                 </div>
 
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {features.map((feature, idx) => (
-                        <div
-                            key={idx}
-                            className="group relative p-[1px] rounded-3xl bg-transparent hover:bg-gradient-to-b hover:from-[var(--homepage-primary)] hover:to-[var(--homepage-accent)] transition-all duration-500 animate-fade-up"
-                            style={{ animationDelay: `${idx * 100}ms` }}
-                        >
-                            <div className="relative h-full bg-[rgba(26,15,58,0.6)] backdrop-blur-xl border border-[var(--homepage-border)] rounded-3xl p-8 transition-all duration-300 group-hover:translate-y-[-4px] overflow-hidden">
-                                {/* Inner Glow */}
-                                <div className="absolute inset-0 bg-gradient-to-br from-[rgba(139,92,246,0.1)] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    {features.map((feature, idx) => {
+                        const isActive = activeIndex === idx;
+                        return (
+                            <div
+                                key={idx}
+                                className="group relative p-[1px] rounded-3xl bg-transparent transition-all duration-500 animate-fade-up cursor-pointer"
+                                style={{ animationDelay: `${idx * 100}ms` }}
+                                onClick={() => handleInteraction(idx)}
+                            >
+                                <div className={`relative h-full backdrop-blur-xl border rounded-3xl p-8 transition-all duration-300 overflow-hidden ${isActive
+                                    ? "bg-[rgba(26,15,58,0.8)] border-[var(--homepage-primary)] translate-y-[-4px] shadow-[0_0_30px_rgba(139,92,246,0.2)]"
+                                    : "bg-[rgba(26,15,58,0.6)] border-[var(--homepage-border)] hover:bg-gradient-to-b hover:from-[var(--homepage-primary)] hover:to-[var(--homepage-accent)] hover:translate-y-[-4px]"
+                                    }`}>
+                                    {/* Inner Glow */}
+                                    <div className={`absolute inset-0 bg-gradient-to-br from-[rgba(139,92,246,0.1)] to-transparent transition-opacity duration-500 ${isActive ? "opacity-100" : "opacity-0 group-hover:opacity-100"
+                                        }`} />
 
-                                <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${feature.color} flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
-                                    {feature.icon}
+                                    <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${feature.color} flex items-center justify-center mb-6 shadow-lg transition-transform duration-300 ${isActive ? "scale-110" : "group-hover:scale-110"
+                                        }`}>
+                                        {feature.icon}
+                                    </div>
+
+                                    <h3 className={`text-xl font-bold mb-3 transition-colors ${isActive ? "text-[var(--homepage-primary-light)]" : "group-hover:text-[var(--homepage-primary-light)]"
+                                        }`}>
+                                        {feature.title}
+                                    </h3>
+                                    <p className="text-[var(--homepage-text-secondary)] leading-relaxed">
+                                        {feature.desc}
+                                    </p>
                                 </div>
-
-                                <h3 className="text-xl font-bold mb-3 group-hover:text-[var(--homepage-primary-light)] transition-colors">
-                                    {feature.title}
-                                </h3>
-                                <p className="text-[var(--homepage-text-secondary)] leading-relaxed">
-                                    {feature.desc}
-                                </p>
                             </div>
-                        </div>
-                    ))}
+                        );
+                    })}
                 </div>
             </div>
         </section>

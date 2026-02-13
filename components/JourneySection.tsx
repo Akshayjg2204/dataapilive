@@ -34,6 +34,12 @@ const milestones = [
 ];
 
 export default function JourneySection() {
+    const [activeIndex, setActiveIndex] = React.useState<number | null>(null);
+
+    const handleInteraction = (index: number) => {
+        setActiveIndex(activeIndex === index ? null : index);
+    };
+
     return (
         <section className="py-20 relative overflow-hidden">
             <div className="max-w-[1000px] mx-auto px-6 relative z-10">
@@ -53,51 +59,65 @@ export default function JourneySection() {
                     <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-[2px] bg-[rgba(139,92,246,0.2)] hidden md:block"></div>
 
                     <div className="flex flex-col gap-12 md:gap-24">
-                        {milestones.map((item, index) => (
-                            <div
-                                key={index}
-                                className={`flex flex-col md:flex-row items-center gap-8 md:gap-0 ${item.position === "left" ? "md:flex-row-reverse" : ""
-                                    }`}
-                                data-aos="fade-up"
-                                data-aos-delay={index * 100}
-                            >
-                                {/* Content Side (Empty for opposite side) */}
-                                <div className="w-full md:w-1/2 flex justify-center md:block hidden"></div>
+                        {milestones.map((item, index) => {
+                            const isActive = activeIndex === index;
 
-                                {/* Center Node */}
-                                <motion.div
-                                    className="relative z-20 flex-shrink-0"
-                                    whileHover={{ rotate: 15, scale: 1.1 }}
-                                    transition={{ type: "spring", stiffness: 300, damping: 15 }}
+                            return (
+                                <div
+                                    key={index}
+                                    className={`flex flex-col md:flex-row items-center gap-8 md:gap-0 ${item.position === "left" ? "md:flex-row-reverse" : ""
+                                        }`}
+                                    data-aos="fade-up"
+                                    data-aos-delay={index * 100}
+                                    onClick={() => handleInteraction(index)}
                                 >
-                                    <div className="w-24 h-24 rounded-full bg-[#150a2e] border-2 border-[rgba(139,92,246,0.5)] flex flex-col items-center justify-center shadow-[0_0_20px_rgba(139,92,246,0.4)] relative group cursor-pointer">
-                                        <span className="text-xl font-bold text-white group-hover:text-[#a78bfa] transition-colors">{item.year}</span>
-                                        <span className="text-xs font-bold text-[#a78bfa] group-hover:text-white transition-colors">{item.quarter}</span>
+                                    {/* Content Side (Empty for opposite side) */}
+                                    <div className="w-full md:w-1/2 flex justify-center md:block hidden"></div>
 
-                                        {/* Glow effect */}
-                                        <div className="absolute inset-0 rounded-full bg-[rgba(139,92,246,0.2)] animate-pulse-glow -z-10 blur-md"></div>
-                                    </div>
-                                </motion.div>
-
-                                {/* Content Card */}
-                                <div className={`w-full md:w-1/2 ${item.position === "left" ? "md:pr-12 md:text-right" : "md:pl-12 text-left"}`}>
+                                    {/* Center Node */}
                                     <motion.div
-                                        className="bg-[#150a2e] p-8 rounded-2xl border border-[rgba(139,92,246,0.2)] shadow-lg cursor-pointer relative overflow-hidden group"
-                                        whileHover={{
-                                            y: -10,
-                                            borderColor: "rgba(139,92,246,0.8)",
-                                            boxShadow: "0 0 40px rgba(139,92,246,0.2)"
+                                        className="relative z-20 flex-shrink-0"
+                                        animate={{
+                                            rotate: isActive ? 15 : 0,
+                                            scale: isActive ? 1.1 : 1
                                         }}
-                                        transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                                        whileHover={{ rotate: 15, scale: 1.1 }}
+                                        transition={{ type: "spring", stiffness: 300, damping: 15 }}
                                     >
-                                        <h3 className="text-2xl font-bold mb-3 text-[#a78bfa] group-hover:text-white transition-colors">{item.title}</h3>
-                                        <p className="text-gray-400 leading-relaxed text-sm group-hover:text-gray-300 transition-colors">
-                                            {item.description}
-                                        </p>
+                                        <div className="w-24 h-24 rounded-full bg-[#150a2e] border-2 border-[rgba(139,92,246,0.5)] flex flex-col items-center justify-center shadow-[0_0_20px_rgba(139,92,246,0.4)] relative group cursor-pointer">
+                                            <span className={`text-xl font-bold transition-colors ${isActive ? "text-[#a78bfa]" : "text-white group-hover:text-[#a78bfa]"}`}>{item.year}</span>
+                                            <span className={`text-xs font-bold transition-colors ${isActive ? "text-white" : "text-[#a78bfa] group-hover:text-white"}`}>{item.quarter}</span>
+
+                                            {/* Glow effect */}
+                                            <div className="absolute inset-0 rounded-full bg-[rgba(139,92,246,0.2)] animate-pulse-glow -z-10 blur-md"></div>
+                                        </div>
                                     </motion.div>
+
+                                    {/* Content Card */}
+                                    <div className={`w-full md:w-1/2 ${item.position === "left" ? "md:pr-12 md:text-right" : "md:pl-12 text-left"}`}>
+                                        <motion.div
+                                            className="bg-[#150a2e] p-8 rounded-2xl border border-[rgba(139,92,246,0.2)] shadow-lg cursor-pointer relative overflow-hidden group"
+                                            animate={{
+                                                y: isActive ? -10 : 0,
+                                                borderColor: isActive ? "rgba(139,92,246,0.8)" : "rgba(139,92,246,0.2)",
+                                                boxShadow: isActive ? "0 0 40px rgba(139,92,246,0.2)" : "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)"
+                                            }}
+                                            whileHover={{
+                                                y: -10,
+                                                borderColor: "rgba(139,92,246,0.8)",
+                                                boxShadow: "0 0 40px rgba(139,92,246,0.2)"
+                                            }}
+                                            transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                                        >
+                                            <h3 className={`text-2xl font-bold mb-3 transition-colors ${isActive ? "text-white" : "text-[#a78bfa] group-hover:text-white"}`}>{item.title}</h3>
+                                            <p className={`leading-relaxed text-sm transition-colors ${isActive ? "text-gray-300" : "text-gray-400 group-hover:text-gray-300"}`}>
+                                                {item.description}
+                                            </p>
+                                        </motion.div>
+                                    </div>
                                 </div>
-                            </div>
-                        ))}
+                            );
+                        })}
                     </div>
                 </div>
             </div>

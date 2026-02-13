@@ -12,6 +12,7 @@ export default function Navbar() {
     const isActive = (item: string) => {
         if (item === "Home" && pathname === "/") return true;
         if (item === "About" && pathname === "/about") return true;
+        if (item === "Services" && pathname === "/services") return true;
         return false;
     };
 
@@ -37,7 +38,7 @@ export default function Navbar() {
                     {["Home", "About", "Services", "Pricing", "FAQ", "Contact"].map((item) => (
                         <Link
                             key={item}
-                            href={item === "Home" ? "/" : item === "About" ? "/about" : `/#${item.toLowerCase()}`}
+                            href={item === "Home" ? "/" : item === "About" ? "/about" : item === "Services" ? "/services" : `/#${item.toLowerCase()}`}
                             className={`relative px-5 py-2.5 text-sm font-semibold rounded-xl transition-all duration-300 ${isActive(item)
                                 ? "text-white shadow-[0_2px_8px_rgba(89,25,145,0.2)]"
                                 : "text-[var(--homepage-text-secondary)] hover:text-white"
@@ -103,7 +104,7 @@ export default function Navbar() {
                         {["Home", "About", "Services", "Pricing", "FAQ", "Contact"].map((item) => (
                             <Link
                                 key={item}
-                                href={item === "Home" ? "/" : item === "About" ? "/about" : `/#${item.toLowerCase()}`}
+                                href={item === "Home" ? "/" : item === "About" ? "/about" : item === "Services" ? "/services" : `/#${item.toLowerCase()}`}
                                 className="text-lg font-semibold text-[var(--homepage-text-secondary)] hover:text-white py-3 border-b border-[var(--homepage-border-light)] transition-colors"
                                 onClick={() => setIsMenuOpen(false)}
                             >

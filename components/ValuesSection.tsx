@@ -43,6 +43,12 @@ const values = [
 ];
 
 export default function ValuesSection() {
+    const [activeIndex, setActiveIndex] = React.useState<number | null>(null);
+
+    const handleInteraction = (index: number) => {
+        setActiveIndex(activeIndex === index ? null : index);
+    };
+
     return (
         <section className="py-20 relative overflow-hidden">
             <div className="max-w-[1200px] mx-auto px-6 relative z-10">
@@ -58,22 +64,30 @@ export default function ValuesSection() {
 
                 {/* Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {values.map((item, index) => (
-                        <div
-                            key={index}
-                            className="bg-[#150a2e] p-8 rounded-2xl border border-[rgba(139,92,246,0.2)] hover:border-[rgba(139,92,246,0.5)] transition-all duration-300 group hover:shadow-[0_0_30px_rgba(139,92,246,0.15)]"
-                            data-aos="fade-up"
-                            data-aos-delay={index * 100}
-                        >
-                            <div className="mb-6 inline-flex items-center justify-center w-12 h-12 rounded-xl bg-[#1a103c] group-hover:scale-110 transition-transform duration-300">
-                                <item.icon className="w-6 h-6 text-[#a78bfa]" />
+                    {values.map((item, index) => {
+                        const isActive = activeIndex === index;
+                        return (
+                            <div
+                                key={index}
+                                className={`bg-[#150a2e] p-8 rounded-2xl border transition-all duration-300 group cursor-pointer ${isActive
+                                        ? "border-[rgba(139,92,246,0.8)] shadow-[0_0_30px_rgba(139,92,246,0.2)]"
+                                        : "border-[rgba(139,92,246,0.2)] hover:border-[rgba(139,92,246,0.5)] hover:shadow-[0_0_30px_rgba(139,92,246,0.15)]"
+                                    }`}
+                                data-aos="fade-up"
+                                data-aos-delay={index * 100}
+                                onClick={() => handleInteraction(index)}
+                            >
+                                <div className={`mb-6 inline-flex items-center justify-center w-12 h-12 rounded-xl bg-[#1a103c] transition-transform duration-300 ${isActive ? "scale-110" : "group-hover:scale-110"
+                                    }`}>
+                                    <item.icon className="w-6 h-6 text-[#a78bfa]" />
+                                </div>
+                                <h3 className="text-xl font-bold mb-3 text-white">{item.title}</h3>
+                                <p className="text-gray-400 text-sm leading-relaxed">
+                                    {item.description}
+                                </p>
                             </div>
-                            <h3 className="text-xl font-bold mb-3 text-white">{item.title}</h3>
-                            <p className="text-gray-400 text-sm leading-relaxed">
-                                {item.description}
-                            </p>
-                        </div>
-                    ))}
+                        );
+                    })}
                 </div>
             </div>
         </section>
