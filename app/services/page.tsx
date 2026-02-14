@@ -1,5 +1,12 @@
 import React from 'react';
 import AutoExSection from '@/components/AutoExSection';
+import HighPerformanceSection from '@/components/HighPerformanceSection';
+import CustomIntegrationsSection from '@/components/CustomIntegrationsSection';
+import EnterpriseSolutionsSection from '@/components/EnterpriseSolutionsSection';
+import ManagedServicesSection from '@/components/ManagedServicesSection';
+import PremiumSupportSection from '@/components/PremiumSupportSection';
+import AdditionalFeaturesSection from '@/components/AdditionalFeaturesSection';
+import CTASection from '@/components/CTASection';
 
 export default function ServicesPage() {
     return (
@@ -28,6 +35,13 @@ export default function ServicesPage() {
             </section>
 
             <AutoExSection />
+            <HighPerformanceSection />
+            <CustomIntegrationsSection />
+            <EnterpriseSolutionsSection />
+            <ManagedServicesSection />
+            <PremiumSupportSection />
+            <AdditionalFeaturesSection />
+            <CTASection />
 
         </main>
     );

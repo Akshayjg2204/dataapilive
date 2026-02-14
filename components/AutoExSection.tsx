@@ -12,7 +12,7 @@ export default function AutoExSection() {
     };
 
     return (
-        <section className="py-20 relative overflow-hidden bg-[#0a051e]">
+        <section className="py-20 relative overflow-hidden bg-[#12092e]">
             <div className="max-w-[1200px] mx-auto px-6 relative z-10">
                 <div className="flex flex-col lg:flex-row gap-16 lg:gap-24">
 
@@ -91,20 +91,46 @@ export default function AutoExSection() {
                                     <motion.div
                                         key={index}
                                         className={`p-4 rounded-xl border flex items-center gap-4 cursor-pointer relative overflow-hidden ${isActive
-                                            ? "bg-[#150a2e] border-[rgba(139,92,246,0.5)] shadow-[0_0_20px_rgba(139,92,246,0.1)]"
-                                            : "bg-[#150a2e]/50 border-[rgba(139,92,246,0.1)] hover:bg-[#150a2e] hover:border-[rgba(139,92,246,0.3)]"
+                                            ? "bg-[#21183c] border-[rgba(139,92,246,0.5)] shadow-[0_0_20px_rgba(139,92,246,0.1)]"
+                                            : "bg-[#21183c]/50 border-[rgba(139,92,246,0.1)] hover:bg-[#21183c] hover:border-[rgba(139,92,246,0.3)]"
                                             }`}
                                         onClick={() => handleInteraction(index)}
                                         layout
-                                        whileHover={{ scale: 1.02, x: 5 }}
-                                        whileTap={{ scale: 0.98 }}
+                                        initial="initial"
+                                        whileHover="hover"
+                                        whileTap="tap"
+                                        animate={isActive ? "active" : "initial"}
+                                        variants={{
+                                            initial: { scale: 1, x: 0 },
+                                            hover: { scale: 1.02, x: 5 },
+                                            tap: { scale: 0.98 },
+                                            active: { scale: 1.02, x: 5, borderColor: "rgba(139,92,246,0.5)" }
+                                        }}
                                         transition={{ type: "spring", stiffness: 300, damping: 20 }}
                                     >
-                                        <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 transition-colors z-10 ${isActive ? "bg-[#8b5cf6]/20" : "bg-[#1a103c] group-hover:bg-[#8b5cf6]/20"
-                                            }`}>
+                                        {/* Left Border Accent */}
+                                        <motion.div
+                                            className="absolute left-0 top-0 bottom-0 w-1 bg-[#8b5cf6]"
+                                            variants={{
+                                                initial: { opacity: 0, scaleY: 0 },
+                                                hover: { opacity: 1, scaleY: 1 },
+                                                active: { opacity: 1, scaleY: 1 }
+                                            }}
+                                            transition={{ duration: 0.3 }}
+                                        />
+
+                                        <motion.div
+                                            className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 transition-colors z-10 ${isActive ? "bg-[#8b5cf6]/20" : "bg-[#1a103c] group-hover:bg-[#8b5cf6]/20"
+                                                }`}
+                                            variants={{
+                                                hover: { rotate: 360 },
+                                                active: { rotate: 360 }
+                                            }}
+                                            transition={{ duration: 0.5, ease: "easeInOut" }}
+                                        >
                                             <Check className={`w-4 h-4 transition-colors ${isActive ? "text-[#8b5cf6]" : "text-[#a78bfa] group-hover:text-[#8b5cf6]"
                                                 }`} />
-                                        </div>
+                                        </motion.div>
                                         <span className={`font-medium transition-colors z-10 ${isActive ? "text-white" : "text-gray-300 group-hover:text-white"
                                             }`}>{feature}</span>
 
