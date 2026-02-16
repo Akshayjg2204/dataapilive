@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 
 export default function AdditionalFeaturesSection() {
     return (
-        <section className="py-24 relative overflow-hidden bg-[#12092e]">
+        <section className="py-24 relative overflow-hidden bg-[#1f163b]">
             <div className="max-w-[1200px] mx-auto px-6 relative z-10">
 
                 {/* Section Header */}

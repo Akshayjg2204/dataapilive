@@ -13,7 +13,7 @@ export default function EnterpriseSolutionsSection() {
 
     return (
         <motion.section
-            className="py-20 relative overflow-hidden bg-[#0a051e]"
+            className="py-20 relative overflow-hidden bg-[#160c34]"
             initial="initial"
             whileHover="hover"
             viewport={{ once: true }}

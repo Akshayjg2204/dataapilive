@@ -10,7 +10,7 @@ import CTASection from '@/components/CTASection';
 
 export default function ServicesPage() {
     return (
-        <main className="min-h-screen bg-[#0a051e] text-white">
+        <main className="min-h-screen bg-[#160c34] text-white">
 
             {/* Hero Section */}
             <section className="pt-40 pb-20 relative overflow-hidden">

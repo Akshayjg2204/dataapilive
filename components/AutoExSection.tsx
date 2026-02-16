@@ -12,7 +12,7 @@ export default function AutoExSection() {
     };
 
     return (
-        <section className="py-20 relative overflow-hidden bg-[#12092e]">
+        <section className="py-20 relative overflow-hidden bg-[#160c34]">
             <div className="max-w-[1200px] mx-auto px-6 relative z-10">
                 <div className="flex flex-col lg:flex-row gap-16 lg:gap-24">
 
