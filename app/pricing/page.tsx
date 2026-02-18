@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import PricingTiers from '@/components/PricingTiers';
+import QuestionsSection from '@/components/QuestionsSection';
 
 export default function PricingPage() {
     const [billingCycle, setBillingCycle] = useState<'monthly' | 'annual'>('monthly');
@@ -72,6 +73,8 @@ export default function PricingPage() {
                 <div data-aos="fade-up" data-aos-delay="300">
                     <PricingTiers billingCycle={billingCycle} />
                 </div>
+
+                <QuestionsSection />
 
             </div>
         </main>

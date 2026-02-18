@@ -1,13 +1,17 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Moon, Sun, Menu, X } from "lucide-react";
+import { Moon, Sun, Menu, X, ChevronDown } from "lucide-react";
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function Navbar() {
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
     const pathname = usePathname();
+    const [isScrolled, setIsScrolled] = useState(false);
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+    // Hide Navbar on Login page
+    if (pathname === '/login') return null;
 
     const isActive = (item: string) => {
         if (item === "Home" && pathname === "/") return true;
@@ -39,7 +43,7 @@ export default function Navbar() {
                     {["Home", "About", "Services", "Pricing", "FAQ", "Contact"].map((item) => (
                         <Link
                             key={item}
-                            href={item === "Home" ? "/" : item === "About" ? "/about" : item === "Services" ? "/services" : item === "Pricing" ? "/pricing" : `/#${item.toLowerCase()}`}
+                            href={item === "Home" ? "/" : item === "About" ? "/about" : item === "Services" ? "/services" : item === "Pricing" ? "/pricing" : item === "FAQ" ? "/faq" : item === "Contact" ? "/contact" : `/#${item.toLowerCase()}`}
                             className={`relative px-5 py-2.5 text-sm font-semibold rounded-xl transition-all duration-300 ${isActive(item)
                                 ? "text-white shadow-[0_2px_8px_rgba(89,25,145,0.2)]"
                                 : "text-[var(--homepage-text-secondary)] hover:text-white"
@@ -105,7 +109,7 @@ export default function Navbar() {
                         {["Home", "About", "Services", "Pricing", "FAQ", "Contact"].map((item) => (
                             <Link
                                 key={item}
-                                href={item === "Home" ? "/" : item === "About" ? "/about" : item === "Services" ? "/services" : item === "Pricing" ? "/pricing" : `/#${item.toLowerCase()}`}
+                                href={item === "Home" ? "/" : item === "About" ? "/about" : item === "Services" ? "/services" : item === "Pricing" ? "/pricing" : item === "FAQ" ? "/faq" : item === "Contact" ? "/contact" : `/#${item.toLowerCase()}`}
                                 className="text-lg font-semibold text-[var(--homepage-text-secondary)] hover:text-white py-3 border-b border-[var(--homepage-border-light)] transition-colors"
                                 onClick={() => setIsMenuOpen(false)}
                             >

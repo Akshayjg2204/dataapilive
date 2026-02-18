@@ -37,30 +37,119 @@
   --font-inter: "Inter", sans-serif;
   --font-jetbrains-mono: "JetBrains Mono", monospace;
 
-  /* Login Colors */
-  --login-left-bg: linear-gradient(135deg, #0a0a1a 0%, #1a1a2e 50%, #16213e 100%);
-  --login-primary: #8b5cf6;
-  --login-primary-dark: #7c3aed;
-  --login-primary-darker: #591991;
-  --login-error: #ef4444;
+  /* Contact Colors */
+  --contact-bg: #0a0a1a;
+  --contact-bg-secondary: #0f0f23;
+  --contact-text: #ffffff;
+  --contact-text-secondary: #a0a0b0;
+  --contact-text-muted: #6b6b80;
+  --contact-primary: #8b5cf6;
+  --contact-primary-dark: #7c3aed;
+  --contact-primary-light: #a78bfa;
+  --contact-border: rgba(139, 92, 246, .2);
+  --contact-input-bg: rgba(255, 255, 255, .03);
+  --contact-input-border: rgba(255, 255, 255, .1);
+  --contact-input-focus: rgba(139, 92, 246, .3);
+  --contact-success: #10b981;
+  --contact-error: #ef4444;
+  --contact-glow: rgba(139, 92, 246, .4);
 
-  /* Navbar Colors */
-  --navbar-bg: rgba(15, 7, 40, .95);
-  --navbar-bg-solid: #0f0728;
+  /* FAQ Colors */
+  --faqspage-primary: #8b5cf6;
+  --faqspage-primary-dark: #7c3aed;
+  --faqspage-primary-light: #a78bfa;
+  --faqspage-accent: #00e5d0;
+  --faqspage-text-primary: #ffffff;
+  --faqspage-text-secondary: #a0a0a0;
+  --faqspage-background: #0f0728;
+  --faqspage-background-secondary: #1a0f3a;
+  --faqspage-surface: rgba(255, 255, 255, .05);
+  --faqspage-surface-hover: rgba(255, 255, 255, .08);
+  --faqspage-border: rgba(139, 92, 246, .2);
+  --faqspage-border-light: rgba(139, 92, 246, .1);
+  --faqspage-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, .3);
+  --faqspage-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, .4);
+  --faqspage-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, .5);
+  --faqspage-glow: rgba(139, 92, 246, .3);
+  --faqspage-card-bg: rgba(26, 15, 58, .8);
+
+  /* Pricing Colors */
+  --pricingpage-primary: #8b5cf6;
+  --pricingpage-primary-dark: #7c3aed;
+  --pricingpage-primary-light: #a78bfa;
+  --pricingpage-accent: #00e5d0;
+  --pricingpage-text-primary: #ffffff;
+  --pricingpage-text-secondary: #a0a0a0;
+  --pricingpage-background: #0f0728;
+  --pricingpage-background-secondary: #1a0f3a;
+  --pricingpage-surface: rgba(255, 255, 255, .05);
+  --pricingpage-surface-hover: rgba(255, 255, 255, .08);
+  --pricingpage-border: rgba(139, 92, 246, .2);
+  --pricingpage-border-light: rgba(139, 92, 246, .1);
+  --pricingpage-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, .3);
+  --pricingpage-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, .4);
+  --pricingpage-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, .5);
+  --pricingpage-glow: rgba(139, 92, 246, .3);
+  --pricingpage-card-bg: rgba(26, 15, 58, .8);
+
+  /* Services Colors */
+  --servicespage-primary: #8b5cf6;
+  --servicespage-primary-dark: #7c3aed;
+  --servicespage-primary-light: #a78bfa;
+  --servicespage-accent: #00e5d0;
+  --servicespage-text-primary: #ffffff;
+  --servicespage-text-secondary: #a0a0a0;
+  --servicespage-background: #0f0728;
+  --servicespage-background-secondary: #1a0f3a;
+  --servicespage-surface: rgba(255, 255, 255, .05);
+  --servicespage-surface-hover: rgba(255, 255, 255, .08);
+  --servicespage-border: rgba(139, 92, 246, .2);
+  --servicespage-border-light: rgba(139, 92, 246, .1);
+  --servicespage-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, .3);
+  --servicespage-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, .4);
+  --servicespage-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, .5);
+  --servicespage-glow: rgba(139, 92, 246, .3);
+  --servicespage-card-bg: rgba(26, 15, 58, .8);
+
+  /* About Us Colors */
+  --aboutus-primary: #8b5cf6;
+  --aboutus-primary-dark: #7c3aed;
+  --aboutus-primary-light: #a78bfa;
+  --aboutus-accent: #00e5d0;
+  --aboutus-text-primary: #ffffff;
+  --aboutus-text-secondary: #a0a0a0;
+  --aboutus-background: #0f0728;
+  --aboutus-background-secondary: #1a0f3a;
+  --aboutus-surface: rgba(255, 255, 255, .05);
+  --aboutus-surface-hover: rgba(255, 255, 255, .08);
+  --aboutus-border: rgba(139, 92, 246, .2);
+  --aboutus-border-light: rgba(139, 92, 246, .1);
+  --aboutus-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, .3);
+  --aboutus-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, .4);
+  --aboutus-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, .5);
+  --aboutus-glow: rgba(139, 92, 246, .3);
+  --aboutus-card-bg: rgba(26, 15, 58, .8);
 
   /* Homepage Colors */
-  --homepage-background: #130a32;
-  --homepage-background-secondary: #1a0f3a;
-  --homepage-text-primary: #ffffff;
-  --homepage-text-secondary: #a0a0a0;
   --homepage-primary: #8b5cf6;
   --homepage-primary-dark: #7c3aed;
   --homepage-primary-light: #a78bfa;
+  --homepage-secondary: rgba(89, 25, 145, .1);
   --homepage-accent: #00e5d0;
+  --homepage-text-primary: #ffffff;
+  --homepage-text-secondary: #a0a0a0;
+  --homepage-background: #0f0728;
+  --homepage-background-secondary: #1a0f3a;
   --homepage-surface: rgba(255, 255, 255, .05);
   --homepage-surface-hover: rgba(255, 255, 255, .08);
   --homepage-border: rgba(139, 92, 246, .2);
   --homepage-border-light: rgba(139, 92, 246, .1);
+  --homepage-success: #10b981;
+  --homepage-error: #ef4444;
+  --homepage-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, .3);
+  --homepage-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, .4);
+  --homepage-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, .5);
+  --homepage-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, .6);
   --homepage-glow: rgba(139, 92, 246, .3);
   --homepage-card-bg: rgba(26, 15, 58, .8);
   --homepage-input-bg: rgba(255, 255, 255, .05);
@@ -70,8 +159,96 @@
   --footer-background: linear-gradient(180deg, #0f0728 0%, #1a0f3a 100%);
   --footer-text-primary: #ffffff;
   --footer-text-secondary: #a0a0a0;
+  --footer-text-muted: #6b7280;
   --footer-border: rgba(139, 92, 246, .15);
   --footer-border-light: rgba(139, 92, 246, .08);
+  --footer-surface: rgba(255, 255, 255, .05);
+  --footer-surface-hover: rgba(255, 255, 255, .08);
+  --footer-card-bg: rgba(139, 92, 246, .06);
+  --footer-card-border: rgba(139, 92, 246, .15);
+  --footer-card-hover: rgba(139, 92, 246, .12);
+  --footer-input-bg: rgba(255, 255, 255, .05);
+  --footer-input-border: rgba(139, 92, 246, .2);
+  --footer-input-focus: rgba(139, 92, 246, .4);
+  --footer-primary: #8b5cf6;
+  --footer-primary-dark: #7c3aed;
+  --footer-primary-darker: #591991;
+  --footer-accent: #00e5d0;
+  --footer-glow: rgba(139, 92, 246, .3);
+  --footer-shadow: 0 4px 16px rgba(0, 0, 0, .3);
+  --footer-orb-opacity: .15;
+  --footer-orb-1: rgba(89, 25, 145, .4);
+  --footer-orb-2: rgba(124, 58, 237, .3);
+  --footer-orb-3: rgba(0, 196, 180, .2);
+
+  /* Navbar Colors */
+  --navbar-bg: rgba(15, 7, 40, .95);
+  --navbar-bg-solid: #0f0728;
+  --navbar-border: rgba(89, 25, 145, .2);
+  --navbar-text: #ffffff;
+  --navbar-text-secondary: #a0a0a0;
+  --navbar-primary: #591991;
+  --navbar-primary-light: #7c3aed;
+  --navbar-accent: #8b5cf6;
+  --navbar-hover-bg: rgba(89, 25, 145, .15);
+  --navbar-active-bg: rgba(89, 25, 145, .2);
+  --navbar-btn-bg: rgba(89, 25, 145, .15);
+  --navbar-shadow: 0 4px 30px rgba(0, 0, 0, .3);
+
+  /* Signup Colors */
+  --signup-left-bg: linear-gradient(135deg, #0a0a1a 0%, #1a1a2e 50%, #16213e 100%);
+  --signup-left-text: #ffffff;
+  --signup-left-text-secondary: #9ca3af;
+  --signup-left-text-muted: #d1d5db;
+  --signup-left-input-bg: rgba(255, 255, 255, .05);
+  --signup-left-input-border: rgba(255, 255, 255, .1);
+  --signup-left-input-hover: rgba(255, 255, 255, .07);
+  --signup-left-input-focus: rgba(255, 255, 255, .08);
+  --signup-left-divider: rgba(255, 255, 255, .15);
+  --signup-right-bg: linear-gradient(135deg, #0f0728 0%, #1a0f3a 50%, #0f0728 100%);
+  --signup-right-text: #ffffff;
+  --signup-right-text-secondary: #a0a0a0;
+  --signup-right-card-bg: rgba(255, 255, 255, .05);
+  --signup-right-card-border: rgba(139, 92, 246, .15);
+  --signup-right-card-hover: rgba(255, 255, 255, .08);
+  --signup-primary: #8b5cf6;
+  --signup-primary-dark: #7c3aed;
+  --signup-primary-light: #a78bfa;
+  --signup-primary-darker: #591991;
+  --signup-error: #ef4444;
+  --signup-error-light: #f87171;
+  --signup-glow: rgba(89, 25, 145, .4);
+  --signup-shadow: 0 8px 24px rgba(89, 25, 145, .4);
+  --signup-shadow-hover: 0 12px 32px rgba(89, 25, 145, .5);
+  --signup-orb-1: rgba(89, 25, 145, .15);
+  --signup-orb-2: rgba(124, 58, 237, .15);
+
+  /* Login Colors */
+  --login-left-bg: #111123;
+  --login-left-text: #ffffff;
+  --login-left-text-secondary: #9ca3af;
+  --login-left-input-bg: rgba(255, 255, 255, .05);
+  --login-left-input-border: rgba(255, 255, 255, .1);
+  --login-left-input-hover: rgba(255, 255, 255, .07);
+  --login-left-input-focus: rgba(255, 255, 255, .08);
+  --login-left-divider-bg: #111123;
+  --login-right-bg: linear-gradient(135deg, #0f0728 0%, #1a0f3a 50%, #0f0728 100%);
+  --login-right-text: #ffffff;
+  --login-right-text-secondary: #a0a0a0;
+  --login-right-card-bg: rgba(255, 255, 255, .05);
+  --login-right-card-border: rgba(139, 92, 246, .15);
+  --login-right-card-hover: rgba(255, 255, 255, .08);
+  --login-primary: #8b5cf6;
+  --login-primary-dark: #7c3aed;
+  --login-primary-light: #a78bfa;
+  --login-primary-darker: #591991;
+  --login-error: #ef4444;
+  --login-error-light: #f87171;
+  --login-glow: rgba(89, 25, 145, .4);
+  --login-shadow: 0 8px 24px rgba(89, 25, 145, .4);
+  --login-shadow-hover: 0 12px 32px rgba(89, 25, 145, .5);
+  --login-orb-1: rgba(89, 25, 145, .15);
+  --login-orb-2: rgba(124, 58, 237, .15);
 }
 
 html.lenis,
@@ -96,9 +273,24 @@ html.lenis body {
 }
 
 body {
-  background-color: var(--homepage-background);
+  font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  -webkit-font-smoothing: antialiased;
   color: var(--homepage-text-primary);
+  background: var(--homepage-background);
+  transition: background-color 0.3s, color 0.3s;
+  min-width: 320px;
+  min-height: 100vh;
+  overflow-x: hidden;
+  margin: 0px;
+  display: block;
 }
+
+@media (max-width: 1023px) {
+  body {
+    overflow-y: auto;
+  }
+}
+
 
 /* Custom Animations */
 @keyframes fade-up {

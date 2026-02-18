@@ -3,7 +3,7 @@ import { Youtube, Linkedin, Mail } from "lucide-react";
 
 export default function Footer() {
     return (
-        <footer className="relative bg-[#050210] border-t border-white/5 pt-20 pb-10 px-6 overflow-hidden">
+        <footer className="relative bg-[#1b113c] border-t border-white/5 pt-20 pb-10 px-6 overflow-hidden">
             <div className="max-w-[1200px] mx-auto relative z-10">
                 {/* Top Section */}
                 <div className="grid lg:grid-cols-12 gap-12 lg:gap-8 mb-20 border-b border-white/5 pb-16">
@@ -26,7 +26,10 @@ export default function Footer() {
                         <ul className="space-y-6 text-sm">
                             {["Services", "Pricing", "FAQ"].map((item) => (
                                 <li key={item}>
-                                    <Link href="#" className="text-gray-400 hover:text-[#8b5cf6] transition-colors">
+                                    <Link
+                                        href={item === "Services" ? "/services" : item === "Pricing" ? "/pricing" : item === "FAQ" ? "/faq" : "#"}
+                                        className="text-gray-400 hover:text-[#8b5cf6] transition-colors"
+                                    >
                                         {item}
                                     </Link>
                                 </li>
