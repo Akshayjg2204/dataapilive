@@ -1,4 +1,5 @@
 "use client";
+import { useState } from "react";
 
 const stats = [
     {
@@ -24,6 +25,12 @@ const stats = [
 ];
 
 export default function InnovationSection() {
+    const [activeId, setActiveId] = useState<number | null>(null);
+
+    const handleInteraction = (idx: number) => {
+        setActiveId(prev => prev === idx ? null : idx);
+    };
+
     return (
         <section className="py-24 relative overflow-hidden">
             {/* Background Grid & Stars */}
@@ -48,31 +55,38 @@ export default function InnovationSection() {
 
                 {/* Stats Cards */}
                 <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                    {stats.map((stat, idx) => (
-                        <div
-                            key={idx}
-                            className="group relative bg-[#1a152e] border border-white/5 rounded-3xl p-8 transition-all duration-500 hover:-translate-y-2 hover:border-[#8b5cf6] hover:shadow-[0_0_50px_rgba(139,92,246,0.3)] overflow-hidden"
-                            data-aos="fade-up"
-                            data-aos-delay={idx * 100 + 200}
-                        >
-                            {/* Corner Accents */}
-                            <div className="absolute top-0 left-0 w-4 h-4 border-l-2 border-t-2 border-[#8b5cf6] rounded-tl-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                            <div className="absolute top-0 right-0 w-4 h-4 border-r-2 border-t-2 border-[#8b5cf6] rounded-tr-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                            <div className="absolute bottom-0 left-0 w-4 h-4 border-l-2 border-b-2 border-[#8b5cf6] rounded-bl-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                            <div className="absolute bottom-0 right-0 w-4 h-4 border-r-2 border-b-2 border-[#8b5cf6] rounded-br-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    {stats.map((stat, idx) => {
+                        const isActive = activeId === idx;
+                        return (
+                            <div
+                                key={idx}
+                                data-aos="fade-up"
+                                data-aos-delay={idx * 100 + 200}
+                            >
+                                <div
+                                    onClick={() => handleInteraction(idx)}
+                                    className={`group relative bg-[#1a152e] border border-white/5 rounded-3xl p-8 transition-all duration-500 hover:-translate-y-2 hover:border-[#8b5cf6] hover:shadow-[0_0_50px_rgba(139,92,246,0.3)] overflow-hidden cursor-pointer h-full ${isActive ? '-translate-y-2 border-[#8b5cf6] shadow-[0_0_50px_rgba(139,92,246,0.3)]' : ''}`}
+                                >
+                                    {/* Corner Accents */}
+                                    <div className={`absolute top-0 left-0 w-4 h-4 border-l-2 border-t-2 border-[#8b5cf6] rounded-tl-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 ${isActive ? 'opacity-100' : ''}`} />
+                                    <div className={`absolute top-0 right-0 w-4 h-4 border-r-2 border-t-2 border-[#8b5cf6] rounded-tr-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 ${isActive ? 'opacity-100' : ''}`} />
+                                    <div className={`absolute bottom-0 left-0 w-4 h-4 border-l-2 border-b-2 border-[#8b5cf6] rounded-bl-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 ${isActive ? 'opacity-100' : ''}`} />
+                                    <div className={`absolute bottom-0 right-0 w-4 h-4 border-r-2 border-b-2 border-[#8b5cf6] rounded-br-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 ${isActive ? 'opacity-100' : ''}`} />
 
-                            <div className="text-5xl font-extrabold text-[#8b5cf6] mb-4 group-hover:scale-105 group-hover:text-white group-hover:drop-shadow-[0_0_15px_rgba(139,92,246,0.8)] transition-all duration-300">
-                                {stat.value}
+                                    <div className={`text-5xl font-extrabold text-[#8b5cf6] mb-4 group-hover:scale-105 group-hover:text-white group-hover:drop-shadow-[0_0_15px_rgba(139,92,246,0.8)] transition-all duration-300 ${isActive ? 'scale-105 text-white drop-shadow-[0_0_15px_rgba(139,92,246,0.8)]' : ''}`}>
+                                        {stat.value}
+                                    </div>
+                                    <div className={`h-[1px] w-12 bg-white/10 mb-4 group-hover:bg-[#8b5cf6] transition-colors duration-300 ${isActive ? 'bg-[#8b5cf6]' : ''}`} />
+                                    <h3 className={`text-white font-bold text-lg mb-1 group-hover:text-[#8b5cf6] transition-colors duration-300 ${isActive ? 'text-[#8b5cf6]' : ''}`}>
+                                        {stat.label}
+                                    </h3>
+                                    <p className={`text-[var(--homepage-text-secondary)] text-sm group-hover:text-white/80 transition-colors duration-300 ${isActive ? 'text-white/80' : ''}`}>
+                                        {stat.description}
+                                    </p>
+                                </div>
                             </div>
-                            <div className="h-[1px] w-12 bg-white/10 mb-4 group-hover:bg-[#8b5cf6] transition-colors duration-300" />
-                            <h3 className="text-white font-bold text-lg mb-1 group-hover:text-[#8b5cf6] transition-colors duration-300">
-                                {stat.label}
-                            </h3>
-                            <p className="text-[var(--homepage-text-secondary)] text-sm group-hover:text-white/80 transition-colors duration-300">
-                                {stat.description}
-                            </p>
-                        </div>
-                    ))}
+                        );
+                    })}
                 </div>
             </div>
         </section>

@@ -10,8 +10,8 @@ export default function Navbar() {
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-    // Hide Navbar on Login page
-    if (pathname === '/login') return null;
+    // Hide Navbar on Login and Signup pages
+    if (pathname === '/login' || pathname === '/signup') return null;
 
     const isActive = (item: string) => {
         if (item === "Home" && pathname === "/") return true;

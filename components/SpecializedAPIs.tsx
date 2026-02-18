@@ -1,4 +1,5 @@
 "use client";
+import { useState } from "react";
 import { Check, ArrowUpRight, Terminal, Activity, Zap, Server, Shield } from "lucide-react";
 
 const apis = [
@@ -52,6 +53,12 @@ const metrics = [
 ];
 
 export default function SpecializedAPIs() {
+    const [activeId, setActiveId] = useState<number | null>(null);
+
+    const handleInteraction = (idx: number) => {
+        setActiveId(prev => prev === idx ? null : idx);
+    };
+
     return (
         <section className="py-24 relative overflow-hidden">
             {/* Background Elements */}
@@ -78,13 +85,25 @@ export default function SpecializedAPIs() {
                 {/* API Cards Grid */}
                 <div className="grid md:grid-cols-2 gap-6 mb-8">
                     {apis.slice(0, 4).map((api, idx) => (
-                        <ApiCard key={idx} api={api} index={idx} />
+                        <ApiCard
+                            key={idx}
+                            api={api}
+                            index={idx}
+                            isActive={activeId === idx}
+                            onClick={() => handleInteraction(idx)}
+                        />
                     ))}
                 </div>
 
                 {/* Full Width Card for Custom Extraction */}
                 <div className="mb-20">
-                    <ApiCard api={apis[4]} index={4} fullWidth />
+                    <ApiCard
+                        api={apis[4]}
+                        index={4}
+                        fullWidth
+                        isActive={activeId === 4}
+                        onClick={() => handleInteraction(4)}
+                    />
                 </div>
 
                 {/* Performance Metrics Dashboard */}
@@ -115,67 +134,56 @@ export default function SpecializedAPIs() {
     );
 }
 
-function ApiCard({ api, index, fullWidth = false }: { api: any, index: number, fullWidth?: boolean }) {
+function ApiCard({ api, index, fullWidth = false, isActive, onClick }: { api: any, index: number, fullWidth?: boolean, isActive: boolean, onClick: () => void }) {
     return (
         <div
-            className={`group relative bg-[#0a051e] border border-white/5 rounded-3xl p-8 hover:border-[#8b5cf6]/50 transition-all duration-300 hover:shadow-[0_0_40px_rgba(139,92,246,0.15)] ${fullWidth ? 'md:grid md:grid-cols-2 md:gap-12 md:items-center' : ''}`}
-            style={{ transitionDelay: '0ms' }}
+            className={fullWidth ? 'h-full' : ''}
             data-aos="fade-up"
             data-aos-delay={index * 100}
         >
-            <div className={fullWidth ? 'order-2' : ''}>
-                <div className="flex justify-between items-start mb-6">
-                    <div className="px-3 py-1 rounded-lg bg-white/5 border border-white/10 text-xs font-mono text-[#8b5cf6] uppercase tracking-wider">
-                        {api.method}
-                    </div>
-                    <div className="text-4xl font-extrabold text-white/5 group-hover:text-white/10 transition-colors">
-                        {api.id}
-                    </div>
-                </div>
-
-                <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-[#8b5cf6] transition-colors">
-                    {api.title}
-                </h3>
-                <p className="text-[var(--homepage-text-secondary)] text-sm mb-6 leading-relaxed">
-                    {api.description}
-                </p>
-
-                {/* Endpoint Code Box */}
-                <div className="bg-[#0f0a25] rounded-xl p-4 mb-6 border border-white/5 font-mono text-xs text-gray-400 group-hover:border-[#8b5cf6]/30 transition-colors relative overflow-hidden">
-                    <span className="text-[#8b5cf6]">ENDPOINT</span>
-                    <div className="mt-2 text-white overflow-x-auto whitespace-nowrap">
-                        {api.endpoint}
-                    </div>
-                </div>
-
-                <div className="space-y-2 mb-8">
-                    {api.features.map((feature: string, idx: number) => (
-                        <div key={idx} className="flex items-center gap-2 text-sm text-[var(--homepage-text-secondary)]">
-                            <Check className="w-4 h-4 text-[#8b5cf6]" />
-                            {feature}
+            <div
+                onClick={onClick}
+                className={`group relative bg-[#0a051e] border border-white/5 rounded-3xl p-8 hover:border-[#8b5cf6]/50 transition-all duration-300 hover:shadow-[0_0_40px_rgba(139,92,246,0.15)] cursor-pointer h-full ${fullWidth ? 'md:grid md:grid-cols-2 md:gap-12 md:items-center' : ''} ${isActive ? 'border-[#8b5cf6]/50 shadow-[0_0_40px_rgba(139,92,246,0.15)]' : ''}`}
+            >
+                <div className={fullWidth ? 'order-2' : ''}>
+                    <div className="flex justify-between items-start mb-6">
+                        <div className="px-3 py-1 rounded-lg bg-white/5 border border-white/10 text-xs font-mono text-[#8b5cf6] uppercase tracking-wider">
+                            {api.method}
                         </div>
-                    ))}
+                        <div className={`text-4xl font-extrabold text-white/5 group-hover:text-white/10 transition-colors ${isActive ? 'text-white/10' : ''}`}>
+                            {api.id}
+                        </div>
+                    </div>
+
+                    <h3 className={`text-2xl font-bold text-white mb-3 group-hover:text-[#8b5cf6] transition-colors ${isActive ? 'text-[#8b5cf6]' : ''}`}>
+                        {api.title}
+                    </h3>
+                    <p className="text-[var(--homepage-text-secondary)] text-sm mb-6 leading-relaxed">
+                        {api.description}
+                    </p>
+
+                    {/* Endpoint Code Box */}
+                    <div className={`bg-[#0f0a25] rounded-xl p-4 mb-6 border border-white/5 font-mono text-xs text-gray-400 group-hover:border-[#8b5cf6]/30 transition-colors relative overflow-hidden ${isActive ? 'border-[#8b5cf6]/30' : ''}`}>
+                        <span className="text-[#8b5cf6]">ENDPOINT</span>
+                        <div className="mt-2 text-white overflow-x-auto whitespace-nowrap">
+                            {api.endpoint}
+                        </div>
+                    </div>
+
+                    <div className="space-y-2 mb-8">
+                        {api.features.map((feature: string, idx: number) => (
+                            <div key={idx} className="flex items-center gap-2 text-sm text-[var(--homepage-text-secondary)]">
+                                <Check className="w-4 h-4 text-[#8b5cf6]" />
+                                {feature}
+                            </div>
+                        ))}
+                    </div>
+
+                    <button className="w-full py-3 rounded-xl bg-[#8b5cf6] text-white font-bold text-sm hover:bg-[#7c3aed] transition-colors flex items-center justify-center gap-2 group/btn">
+                        View Docs <ArrowUpRight className="w-4 h-4 group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform" />
+                    </button>
                 </div>
-
-                <button className="w-full py-3 rounded-xl bg-[#8b5cf6] text-white font-bold text-sm hover:bg-[#7c3aed] transition-colors flex items-center justify-center gap-2 group/btn">
-                    View Docs <ArrowUpRight className="w-4 h-4 group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform" />
-                </button>
             </div>
-
-            {/* For custom extraction full width card, maybe add an image or visual on the left? 
-                The prompt image for #05 just shows it as a wide card but content is similar. 
-                I'll stick to simple layout but spread if needed. 
-                Actually looking at the image #05 is just below #03 and #04, it might be same width or centered?
-                Image shows #01 #02 on row 1, #03 #04 on row 2, and #05 on row 3 (centered or left aligned? looks like it takes half width visual but usually these are centered or full. 
-                Wait, looking at the crop images, #05 is in a grid. The prompts says "add THIS section", implying the whole block.
-                I will make #05 max-w-2xl mx-auto if it's single, or just put it in the grid if I want 3 rows.
-                But the design typically is 2 cols. 5 items -> 2, 2, 1.
-                I'll make the 5th item half-width centered or full width. 
-                Let's make it full width distinct card or just centered. 
-                The current code makes it full width div wrapper, and inside I can style it.
-                I'll keep it simple: 2 columns, last one spans 2 cols? Or just centered.
-                Let's try spans 2 cols.
-            */}
         </div>
     );
 }

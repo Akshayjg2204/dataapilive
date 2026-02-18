@@ -1,4 +1,5 @@
 "use client";
+import { useState } from "react";
 import { X, Check } from "lucide-react";
 
 const problems = [
@@ -40,6 +41,12 @@ const solutions = [
 ];
 
 export default function ComparisonSection() {
+    const [activeId, setActiveId] = useState<string | null>(null);
+
+    const handleInteraction = (id: string) => {
+        setActiveId(prev => prev === id ? null : id);
+    };
+
     return (
         <section className="py-16 relative overflow-hidden" id="comparison">
             <div className="max-w-[1400px] mx-auto px-6">
@@ -60,34 +67,42 @@ export default function ComparisonSection() {
                             The Problem with Traditional Extraction
                         </h3>
                         <div className="space-y-6">
-                            {problems.map((item, idx) => (
-                                <div
-                                    key={idx}
-                                    className="group relative bg-[#0a051e] border border-white/5 rounded-2xl p-6 transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_0_30px_rgba(239,68,68,0.15)]"
-                                    data-aos="fade-up"
-                                    data-aos-delay={idx * 100}
-                                >
-                                    {/* Left Gradient Border */}
-                                    <div className="absolute left-0 top-4 bottom-4 w-1 bg-gradient-to-b from-[#ef4444] to-transparent rounded-r-full opacity-50 group-hover:opacity-100 transition-opacity" />
+                            {problems.map((item, idx) => {
+                                const id = `problem-${idx}`;
+                                const isActive = activeId === id;
+                                return (
+                                    <div
+                                        key={idx}
+                                        data-aos="fade-up"
+                                        data-aos-delay={idx * 100}
+                                    >
+                                        <div
+                                            onClick={() => handleInteraction(id)}
+                                            className={`group relative bg-[#0a051e] border border-white/5 rounded-2xl p-6 transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_0_30px_rgba(239,68,68,0.15)] cursor-pointer h-full ${isActive ? '-translate-y-2 shadow-[0_0_30px_rgba(239,68,68,0.15)]' : ''}`}
+                                        >
+                                            {/* Left Gradient Border */}
+                                            <div className={`absolute left-0 top-4 bottom-4 w-1 bg-gradient-to-b from-[#ef4444] to-transparent rounded-r-full opacity-50 group-hover:opacity-100 transition-opacity ${isActive ? 'opacity-100' : ''}`} />
 
-                                    {/* Hover Glow Background */}
-                                    <div className="absolute inset-0 bg-gradient-to-r from-[#ef4444]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl" />
+                                            {/* Hover Glow Background */}
+                                            <div className={`absolute inset-0 bg-gradient-to-r from-[#ef4444]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl ${isActive ? 'opacity-100' : ''}`} />
 
-                                    <div className="flex items-start gap-5 relative z-10">
-                                        <div className="flex-shrink-0 w-12 h-12 bg-[#2a0e0e] border border-[rgba(239,68,68,0.2)] rounded-xl flex items-center justify-center shadow-none transition-all duration-500 group-hover:bg-[#ef4444] group-hover:shadow-[0_0_20px_rgba(239,68,68,0.6)] group-hover:border-transparent">
-                                            <X className="w-6 h-6 text-[#ef4444] transition-all duration-500 group-hover:rotate-180 group-hover:text-white" />
-                                        </div>
-                                        <div>
-                                            <h4 className="text-xl font-bold text-white mb-2 group-hover:text-[#ef4444] transition-colors duration-300">
-                                                {item.title}
-                                            </h4>
-                                            <p className="text-[var(--homepage-text-secondary)] leading-relaxed text-sm md:text-base">
-                                                {item.description}
-                                            </p>
+                                            <div className="flex items-start gap-5 relative z-10">
+                                                <div className={`flex-shrink-0 w-12 h-12 bg-[#2a0e0e] border border-[rgba(239,68,68,0.2)] rounded-xl flex items-center justify-center shadow-none transition-all duration-500 group-hover:bg-[#ef4444] group-hover:shadow-[0_0_20px_rgba(239,68,68,0.6)] group-hover:border-transparent ${isActive ? 'bg-[#ef4444] shadow-[0_0_20px_rgba(239,68,68,0.6)] border-transparent' : ''}`}>
+                                                    <X className={`w-6 h-6 text-[#ef4444] transition-all duration-500 group-hover:rotate-180 group-hover:text-white ${isActive ? 'rotate-180 text-white' : ''}`} />
+                                                </div>
+                                                <div>
+                                                    <h4 className={`text-xl font-bold text-white mb-2 group-hover:text-[#ef4444] transition-colors duration-300 ${isActive ? 'text-[#ef4444]' : ''}`}>
+                                                        {item.title}
+                                                    </h4>
+                                                    <p className="text-[var(--homepage-text-secondary)] leading-relaxed text-sm md:text-base">
+                                                        {item.description}
+                                                    </p>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            ))}
+                                );
+                            })}
                         </div>
                     </div>
 
@@ -97,34 +112,42 @@ export default function ComparisonSection() {
                             The AutoEx™ Solution
                         </h3>
                         <div className="space-y-6">
-                            {solutions.map((item, idx) => (
-                                <div
-                                    key={idx}
-                                    className="group relative bg-[#0a051e] border border-white/5 rounded-2xl p-6 transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_0_30px_rgba(0,229,208,0.15)]"
-                                    data-aos="fade-up"
-                                    data-aos-delay={idx * 100 + 400}
-                                >
-                                    {/* Left Gradient Border */}
-                                    <div className="absolute left-0 top-4 bottom-4 w-1 bg-gradient-to-b from-[var(--homepage-accent)] to-transparent rounded-r-full opacity-50 group-hover:opacity-100 transition-opacity" />
+                            {solutions.map((item, idx) => {
+                                const id = `solution-${idx}`;
+                                const isActive = activeId === id;
+                                return (
+                                    <div
+                                        key={idx}
+                                        data-aos="fade-up"
+                                        data-aos-delay={idx * 100 + 400}
+                                    >
+                                        <div
+                                            onClick={() => handleInteraction(id)}
+                                            className={`group relative bg-[#0a051e] border border-white/5 rounded-2xl p-6 transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_0_30px_rgba(0,229,208,0.15)] cursor-pointer h-full ${isActive ? '-translate-y-2 shadow-[0_0_30px_rgba(0,229,208,0.15)]' : ''}`}
+                                        >
+                                            {/* Left Gradient Border */}
+                                            <div className={`absolute left-0 top-4 bottom-4 w-1 bg-gradient-to-b from-[var(--homepage-accent)] to-transparent rounded-r-full opacity-50 group-hover:opacity-100 transition-opacity ${isActive ? 'opacity-100' : ''}`} />
 
-                                    {/* Hover Glow Background */}
-                                    <div className="absolute inset-0 bg-gradient-to-r from-[var(--homepage-accent)]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl" />
+                                            {/* Hover Glow Background */}
+                                            <div className={`absolute inset-0 bg-gradient-to-r from-[var(--homepage-accent)]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl ${isActive ? 'opacity-100' : ''}`} />
 
-                                    <div className="flex items-start gap-5 relative z-10">
-                                        <div className="flex-shrink-0 w-12 h-12 bg-[#0e2a25] border border-[rgba(16,185,129,0.2)] rounded-xl flex items-center justify-center shadow-none transition-all duration-500 group-hover:bg-[var(--homepage-accent)] group-hover:shadow-[0_0_20px_rgba(0,229,208,0.6)] group-hover:border-transparent">
-                                            <Check className="w-6 h-6 text-[var(--homepage-accent)] transition-colors duration-300 group-hover:text-[#0f0728]" />
-                                        </div>
-                                        <div>
-                                            <h4 className="text-xl font-bold text-white mb-2 group-hover:text-[var(--homepage-accent)] transition-colors duration-300">
-                                                {item.title}
-                                            </h4>
-                                            <p className="text-[var(--homepage-text-secondary)] leading-relaxed text-sm md:text-base">
-                                                {item.description}
-                                            </p>
+                                            <div className="flex items-start gap-5 relative z-10">
+                                                <div className={`flex-shrink-0 w-12 h-12 bg-[#0e2a25] border border-[rgba(16,185,129,0.2)] rounded-xl flex items-center justify-center shadow-none transition-all duration-500 group-hover:bg-[var(--homepage-accent)] group-hover:shadow-[0_0_20px_rgba(0,229,208,0.6)] group-hover:border-transparent ${isActive ? 'bg-[var(--homepage-accent)] shadow-[0_0_20px_rgba(0,229,208,0.6)] border-transparent' : ''}`}>
+                                                    <Check className={`w-6 h-6 text-[var(--homepage-accent)] transition-colors duration-300 group-hover:text-[#0f0728] ${isActive ? 'text-[#0f0728]' : ''}`} />
+                                                </div>
+                                                <div>
+                                                    <h4 className={`text-xl font-bold text-white mb-2 group-hover:text-[var(--homepage-accent)] transition-colors duration-300 ${isActive ? 'text-[var(--homepage-accent)]' : ''}`}>
+                                                        {item.title}
+                                                    </h4>
+                                                    <p className="text-[var(--homepage-text-secondary)] leading-relaxed text-sm md:text-base">
+                                                        {item.description}
+                                                    </p>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            ))}
+                                );
+                            })}
                         </div>
                     </div>
                 </div>

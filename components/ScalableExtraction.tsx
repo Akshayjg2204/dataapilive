@@ -1,4 +1,5 @@
 "use client";
+import { useState } from "react";
 import { ArrowRight, MessageSquare, CheckCircle, ShieldCheck } from "lucide-react";
 
 const features = [
@@ -41,6 +42,12 @@ const stats = [
 ];
 
 export default function ScalableExtraction() {
+    const [activeId, setActiveId] = useState<number | null>(null);
+
+    const handleInteraction = (idx: number) => {
+        setActiveId(prev => prev === idx ? null : idx);
+    };
+
     return (
         <section className="py-24 relative overflow-hidden">
             {/* Background Elements */}
@@ -64,23 +71,31 @@ export default function ScalableExtraction() {
 
                 {/* Feature Grid */}
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-32">
-                    {features.map((feature, idx) => (
-                        <div
-                            key={idx}
-                            className="group bg-[#0f0a1f] border border-white/5 rounded-2xl p-8 hover:border-[#8b5cf6]/30 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg animate-fade-up"
-                            style={{ animationDelay: `${idx * 100}ms` }}
-                        >
-                            <div className="w-12 h-12 rounded-xl bg-indigo-600 flex items-center justify-center text-white font-bold text-lg mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300">
-                                {feature.id}
+                    {features.map((feature, idx) => {
+                        const isActive = activeId === idx;
+                        return (
+                            <div
+                                key={idx}
+                                className="animate-fade-up" // Kept existing animation class on wrapper
+                                style={{ animationDelay: `${idx * 100}ms` }}
+                            >
+                                <div
+                                    onClick={() => handleInteraction(idx)}
+                                    className={`group bg-[#0f0a1f] border border-white/5 rounded-2xl p-8 hover:border-[#8b5cf6]/30 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg cursor-pointer h-full ${isActive ? 'border-[#8b5cf6]/30 -translate-y-1 shadow-lg' : ''}`}
+                                >
+                                    <div className={`w-12 h-12 rounded-xl bg-indigo-600 flex items-center justify-center text-white font-bold text-lg mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300 ${isActive ? 'scale-110' : ''}`}>
+                                        {feature.id}
+                                    </div>
+                                    <h3 className={`text-xl font-bold text-white mb-3 group-hover:text-purple-400 transition-colors ${isActive ? 'text-purple-400' : ''}`}>
+                                        {feature.title}
+                                    </h3>
+                                    <p className="text-[var(--homepage-text-secondary)] text-sm leading-relaxed">
+                                        {feature.description}
+                                    </p>
+                                </div>
                             </div>
-                            <h3 className="text-xl font-bold text-white mb-3 group-hover:text-purple-400 transition-colors">
-                                {feature.title}
-                            </h3>
-                            <p className="text-[var(--homepage-text-secondary)] text-sm leading-relaxed">
-                                {feature.description}
-                            </p>
-                        </div>
-                    ))}
+                        );
+                    })}
                 </div>
 
                 {/* CTA Section */}

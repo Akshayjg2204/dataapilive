@@ -11,6 +11,8 @@ export default function AOSInit() {
             once: true,
             easing: "ease-out-cubic",
             offset: 50,
+            // disable: false, // accepts following values: 'phone', 'tablet', 'mobile', boolean, expression or function
+            mirror: false,
         });
     }, []);
 
