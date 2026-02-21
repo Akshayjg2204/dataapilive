@@ -67,24 +67,28 @@ export default function ValuesSection() {
                     {values.map((item, index) => {
                         const isActive = activeIndex === index;
                         return (
+                            /* Outer div: data-aos ONLY — no onClick, no transition transforms */
                             <div
                                 key={index}
-                                className={`bg-[#150a2e] p-8 rounded-2xl border transition-all duration-300 group cursor-pointer ${isActive
-                                        ? "border-[rgba(139,92,246,0.8)] shadow-[0_0_30px_rgba(139,92,246,0.2)]"
-                                        : "border-[rgba(139,92,246,0.2)] hover:border-[rgba(139,92,246,0.5)] hover:shadow-[0_0_30px_rgba(139,92,246,0.15)]"
-                                    }`}
                                 data-aos="fade-up"
                                 data-aos-delay={index * 100}
-                                onClick={() => handleInteraction(index)}
                             >
-                                <div className={`mb-6 inline-flex items-center justify-center w-12 h-12 rounded-xl bg-[#1a103c] transition-transform duration-300 ${isActive ? "scale-110" : "group-hover:scale-110"
-                                    }`}>
-                                    <item.icon className="w-6 h-6 text-[#a78bfa]" />
+                                {/* Inner div: onClick + CSS transitions ONLY — no data-aos */}
+                                <div
+                                    className={`bg-[#150a2e] p-8 rounded-2xl border transition-all duration-300 group cursor-pointer h-full ${isActive
+                                        ? "border-[rgba(139,92,246,0.8)] shadow-[0_0_30px_rgba(139,92,246,0.2)] -translate-y-2"
+                                        : "border-[rgba(139,92,246,0.2)] hover:border-[rgba(139,92,246,0.5)] hover:shadow-[0_0_30px_rgba(139,92,246,0.15)] hover:-translate-y-2"
+                                        }`}
+                                    onClick={() => handleInteraction(index)}
+                                >
+                                    <div className={`mb-6 inline-flex items-center justify-center w-12 h-12 rounded-xl bg-[#1a103c] transition-transform duration-300 ${isActive ? "scale-110" : "group-hover:scale-110"}`}>
+                                        <item.icon className="w-6 h-6 text-[#a78bfa]" />
+                                    </div>
+                                    <h3 className="text-xl font-bold mb-3 text-white">{item.title}</h3>
+                                    <p className="text-gray-400 text-sm leading-relaxed">
+                                        {item.description}
+                                    </p>
                                 </div>
-                                <h3 className="text-xl font-bold mb-3 text-white">{item.title}</h3>
-                                <p className="text-gray-400 text-sm leading-relaxed">
-                                    {item.description}
-                                </p>
                             </div>
                         );
                     })}

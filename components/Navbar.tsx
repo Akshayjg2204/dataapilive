@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Moon, Menu, X } from "lucide-react";
+import { Moon, Menu, X, ArrowRight } from "lucide-react";
 import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
@@ -17,7 +17,7 @@ function getHref(item: string) {
         FAQ: "/faq",
         Contact: "/contact",
     };
-    return map[item] ?? `/#${item.toLowerCase()}`;
+    return map[item] ?? "/";
 }
 
 export default function Navbar() {
@@ -25,11 +25,8 @@ export default function Navbar() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [mounted, setMounted] = useState(false);
 
-    useEffect(() => {
-        setMounted(true);
-    }, []);
+    useEffect(() => { setMounted(true); }, []);
 
-    // Lock body scroll when menu open
     useEffect(() => {
         document.body.style.overflow = isMenuOpen ? "hidden" : "";
         return () => { document.body.style.overflow = ""; };
@@ -45,145 +42,183 @@ export default function Navbar() {
         return false;
     };
 
-    // Mobile menu rendered via portal – completely outside the nav stacking context
     const mobileMenuPortal = mounted
         ? createPortal(
             <AnimatePresence>
                 {isMenuOpen && (
                     <motion.div
                         key="mobile-menu"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.18 }}
+                        initial={{ x: "100%" }}
+                        animate={{ x: 0 }}
+                        exit={{ x: "100%" }}
+                        transition={{ type: "tween", duration: 0.25, ease: "easeInOut" }}
                         style={{
                             position: "fixed",
                             inset: 0,
                             zIndex: 99999,
                             display: "flex",
                             flexDirection: "column",
-                            background: "#0f0728",
+                            backgroundColor: "#0b0820",
                         }}
                     >
-                        {/* Top bar with logo + close */}
-                        <div
-                            style={{
-                                display: "flex",
-                                alignItems: "center",
-                                justifyContent: "space-between",
-                                padding: "0 24px",
-                                height: "85px",
-                                borderBottom: "1px solid rgba(255,255,255,0.08)",
-                                flexShrink: 0,
-                            }}
-                        >
+                        {/* ── Top bar ── */}
+                        <div style={{
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "space-between",
+                            padding: "0 20px",
+                            height: "72px",
+                            flexShrink: 0,
+                        }}>
+                            {/* Logo */}
                             <Link
                                 href="/"
-                                style={{ display: "flex", alignItems: "center", gap: "12px", textDecoration: "none" }}
                                 onClick={() => setIsMenuOpen(false)}
+                                style={{ display: "flex", alignItems: "center", gap: "10px", textDecoration: "none" }}
                             >
                                 <img
                                     src="https://res.cloudinary.com/dffu1ungl/image/upload/v1759645205/Data_API_Logo_u4xvkl.png"
                                     alt="DataAPI Logo"
-                                    style={{ width: "40px", height: "40px", objectFit: "contain" }}
+                                    style={{ width: "36px", height: "36px", objectFit: "contain" }}
                                 />
-                                <span
-                                    style={{
-                                        fontSize: "22px",
-                                        fontWeight: 700,
-                                        background: "linear-gradient(to right, #8b5cf6, #00e5d0)",
-                                        WebkitBackgroundClip: "text",
-                                        WebkitTextFillColor: "transparent",
-                                    }}
-                                >
+                                <span style={{
+                                    fontSize: "20px",
+                                    fontWeight: 700,
+                                    background: "linear-gradient(to right, #9b72f8, #00e5d0)",
+                                    WebkitBackgroundClip: "text",
+                                    WebkitTextFillColor: "transparent",
+                                }}>
                                     DataAPI
                                 </span>
                             </Link>
-                            <button
-                                onClick={() => setIsMenuOpen(false)}
-                                style={{ background: "none", border: "none", color: "white", cursor: "pointer", padding: "8px" }}
-                                aria-label="Close menu"
-                            >
-                                <X size={28} />
-                            </button>
+
+                            {/* Theme toggle + X button */}
+                            <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                                {/* mock theme toggle */}
+                                <div style={{
+                                    display: "flex",
+                                    alignItems: "center",
+                                    background: "#1a1535",
+                                    border: "1px solid rgba(255,255,255,0.12)",
+                                    borderRadius: "999px",
+                                    padding: "3px 6px",
+                                    gap: "4px",
+                                }}>
+                                    <div style={{ width: "20px", height: "20px", background: "linear-gradient(135deg,#fff,#d1d5db)", borderRadius: "50%" }} />
+                                    <Moon size={14} color="#a78bfa" />
+                                </div>
+
+                                {/* X button with purple border */}
+                                <button
+                                    onClick={() => setIsMenuOpen(false)}
+                                    style={{
+                                        width: "44px",
+                                        height: "44px",
+                                        display: "flex",
+                                        alignItems: "center",
+                                        justifyContent: "center",
+                                        background: "transparent",
+                                        border: "1.5px solid #7c3aed",
+                                        borderRadius: "12px",
+                                        color: "white",
+                                        cursor: "pointer",
+                                    }}
+                                    aria-label="Close menu"
+                                >
+                                    <X size={20} />
+                                </button>
+                            </div>
                         </div>
 
-                        {/* Nav links */}
-                        <div style={{ flex: 1, overflowY: "auto", padding: "16px 24px" }}>
-                            {NAV_LINKS.map((item, idx) => (
-                                <motion.div
-                                    key={item}
-                                    initial={{ opacity: 0, x: -16 }}
-                                    animate={{ opacity: 1, x: 0 }}
-                                    transition={{ delay: 0.04 + idx * 0.06 }}
-                                >
-                                    <Link
-                                        href={getHref(item)}
-                                        onClick={() => setIsMenuOpen(false)}
-                                        style={{
-                                            display: "flex",
-                                            alignItems: "center",
-                                            fontSize: "20px",
-                                            fontWeight: 600,
-                                            color: isActive(item) ? "#ffffff" : "rgba(255,255,255,0.6)",
-                                            paddingTop: "18px",
-                                            paddingBottom: "18px",
-                                            borderBottom: "1px solid rgba(255,255,255,0.08)",
-                                            textDecoration: "none",
-                                            width: "100%",
-                                        }}
+                        {/* ── Nav links ── */}
+                        <div style={{ flex: 1, overflowY: "auto", padding: "8px 20px 0" }}>
+                            {NAV_LINKS.map((item, idx) => {
+                                const active = isActive(item);
+                                return (
+                                    <motion.div
+                                        key={item}
+                                        initial={{ opacity: 0, x: 20 }}
+                                        animate={{ opacity: 1, x: 0 }}
+                                        transition={{ delay: 0.06 + idx * 0.06 }}
                                     >
-                                        {item}
-                                    </Link>
-                                </motion.div>
-                            ))}
-
-                            <motion.div
-                                initial={{ opacity: 0, y: 10 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.42 }}
-                                style={{ display: "flex", flexDirection: "column", gap: "12px", marginTop: "32px" }}
-                            >
-                                <Link
-                                    href="/login"
-                                    onClick={() => setIsMenuOpen(false)}
-                                    style={{
-                                        display: "flex",
-                                        alignItems: "center",
-                                        justifyContent: "center",
-                                        padding: "16px 24px",
-                                        fontSize: "16px",
-                                        fontWeight: 600,
-                                        color: "#c4b5fd",
-                                        background: "rgba(139,92,246,0.15)",
-                                        border: "1px solid rgba(139,92,246,0.3)",
-                                        borderRadius: "12px",
-                                        textDecoration: "none",
-                                    }}
-                                >
-                                    Log In
-                                </Link>
-                                <Link
-                                    href="/signup"
-                                    onClick={() => setIsMenuOpen(false)}
-                                    style={{
-                                        display: "flex",
-                                        alignItems: "center",
-                                        justifyContent: "center",
-                                        padding: "16px 24px",
-                                        fontSize: "16px",
-                                        fontWeight: 700,
-                                        color: "#ffffff",
-                                        background: "linear-gradient(135deg, #7c3aed, #4c0d95)",
-                                        borderRadius: "12px",
-                                        textDecoration: "none",
-                                        boxShadow: "0 4px 14px rgba(89,25,145,0.4)",
-                                    }}
-                                >
-                                    Get Started
-                                </Link>
-                            </motion.div>
+                                        <Link
+                                            href={getHref(item)}
+                                            onClick={() => setIsMenuOpen(false)}
+                                            style={{
+                                                display: "flex",
+                                                alignItems: "center",
+                                                justifyContent: "space-between",
+                                                padding: active ? "16px 18px" : "18px 4px",
+                                                marginBottom: active ? "4px" : "0",
+                                                background: active ? "#1a1240" : "transparent",
+                                                borderRadius: active ? "12px" : "0",
+                                                borderBottom: active ? "none" : "1px solid rgba(255,255,255,0.07)",
+                                                textDecoration: "none",
+                                                color: active ? "#ffffff" : "rgba(255,255,255,0.55)",
+                                                fontSize: "18px",
+                                                fontWeight: active ? 700 : 500,
+                                            }}
+                                        >
+                                            <span>{item}</span>
+                                            {active && <ArrowRight size={20} color="#a78bfa" />}
+                                        </Link>
+                                    </motion.div>
+                                );
+                            })}
                         </div>
+
+                        {/* ── Bottom Buttons ── */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 16 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.45 }}
+                            style={{
+                                padding: "20px",
+                                borderTop: "1px solid rgba(255,255,255,0.08)",
+                                display: "flex",
+                                flexDirection: "column",
+                                gap: "12px",
+                                flexShrink: 0,
+                            }}
+                        >
+                            <Link
+                                href="/login"
+                                onClick={() => setIsMenuOpen(false)}
+                                style={{
+                                    display: "flex",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                    padding: "15px 24px",
+                                    background: "#1a1240",
+                                    border: "none",
+                                    borderRadius: "12px",
+                                    color: "#9b72f8",
+                                    fontSize: "16px",
+                                    fontWeight: 600,
+                                    textDecoration: "none",
+                                }}
+                            >
+                                Log In
+                            </Link>
+                            <Link
+                                href="/signup"
+                                onClick={() => setIsMenuOpen(false)}
+                                style={{
+                                    display: "flex",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                    padding: "15px 24px",
+                                    background: "#7c3aed",
+                                    borderRadius: "14px",
+                                    color: "#ffffff",
+                                    fontSize: "16px",
+                                    fontWeight: 700,
+                                    textDecoration: "none",
+                                }}
+                            >
+                                Get Started
+                            </Link>
+                        </motion.div>
                     </motion.div>
                 )}
             </AnimatePresence>,
@@ -227,23 +262,13 @@ export default function Navbar() {
                                         transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
                                     />
                                 )}
-                                <span className="relative z-10">
-                                    {item}
-                                    {isActive(item) && (
-                                        <motion.span
-                                            layoutId="navbar-active-underline"
-                                            className="absolute -bottom-1 left-0 w-full h-[3px] bg-gradient-to-r from-[var(--homepage-primary)] to-[var(--homepage-primary-light)] rounded-full"
-                                            transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-                                        />
-                                    )}
-                                </span>
+                                <span className="relative z-10">{item}</span>
                             </Link>
                         ))}
                     </div>
 
                     {/* Right Actions */}
                     <div className="flex items-center gap-4">
-                        {/* Theme Toggle */}
                         <button className="flex items-center gap-2 p-1 bg-[#1a1a2e] border border-[var(--homepage-border-light)] rounded-full w-[56px] h-[28px] relative">
                             <div className="w-5 h-5 bg-gradient-to-br from-white to-gray-300 rounded-full shadow-md ml-0.5" />
                             <Moon className="w-4 h-4 text-[#a78bfa] absolute right-1.5" />
@@ -275,7 +300,6 @@ export default function Navbar() {
                 </div>
             </nav>
 
-            {/* Portal renders mobile menu directly on document.body */}
             {mobileMenuPortal}
         </>
     );

@@ -1,11 +1,68 @@
 "use client";
-import React from "react";
+import React, { useRef } from "react";
 import { Server, Star, Check, ArrowRight } from "lucide-react";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+
+/** 3-D tilt icon: tracks mouse position → rotateX / rotateY via spring physics.
+ *  The outer motion.div handles the floating bob; the inner wrapper handles the tilt.
+ */
+function TiltIcon() {
+    const ref = useRef<HTMLDivElement>(null);
+
+    const rawX = useMotionValue(0);
+    const rawY = useMotionValue(0);
+
+    const rotateX = useSpring(useTransform(rawY, [-0.5, 0.5], [18, -18]), { stiffness: 300, damping: 30 });
+    const rotateY = useSpring(useTransform(rawX, [-0.5, 0.5], [-18, 18]), { stiffness: 300, damping: 30 });
+
+    const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+        const el = ref.current;
+        if (!el) return;
+        const { left, top, width, height } = el.getBoundingClientRect();
+        rawX.set((e.clientX - left) / width - 0.5);
+        rawY.set((e.clientY - top) / height - 0.5);
+    };
+
+    const handleMouseLeave = () => {
+        rawX.set(0);
+        rawY.set(0);
+    };
+
+    return (
+        /* Floating bob animation */
+        <motion.div
+            animate={{
+                y: [0, -10, 0],
+                boxShadow: [
+                    "0 0 30px rgba(139,92,246,0.5)",
+                    "0 0 50px rgba(139,92,246,0.7)",
+                    "0 0 30px rgba(139,92,246,0.5)"
+                ]
+            }}
+            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+            style={{ perspective: 600 }}
+            className="rounded-2xl"
+        >
+            {/* Tilt layer */}
+            <motion.div
+                ref={ref}
+                onMouseMove={handleMouseMove}
+                onMouseLeave={handleMouseLeave}
+                style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
+                className="w-20 h-20 rounded-2xl bg-gradient-to-br from-[#8b5cf6] to-[#a78bfa] p-[1px] cursor-pointer"
+            >
+                <div className="w-full h-full bg-[#1e1b4b] rounded-2xl flex items-center justify-center backdrop-blur-xl">
+                    <Server className="w-10 h-10 text-[#a78bfa]" style={{ transform: "translateZ(20px)" }} />
+                </div>
+            </motion.div>
+        </motion.div>
+    );
+}
 
 export default function AutoExSection() {
     const [activeIndex, setActiveIndex] = React.useState<number | null>(null);
+
 
     const handleInteraction = (index: number) => {
         setActiveIndex(activeIndex === index ? null : index);
@@ -19,27 +76,9 @@ export default function AutoExSection() {
                     {/* Left Column: Product Info */}
                     <div className="w-full lg:w-1/2" data-aos="fade-right">
                         <div className="flex items-center gap-6 mb-8">
-                            {/* Icon Box */}
-                            <motion.div
-                                className="w-20 h-20 rounded-2xl bg-gradient-to-br from-[#8b5cf6] to-[#a78bfa] p-[1px] shadow-[0_0_30px_rgba(139,92,246,0.5)]"
-                                animate={{
-                                    y: [0, -10, 0],
-                                    boxShadow: [
-                                        "0 0 30px rgba(139,92,246,0.5)",
-                                        "0 0 50px rgba(139,92,246,0.7)",
-                                        "0 0 30px rgba(139,92,246,0.5)"
-                                    ]
-                                }}
-                                transition={{
-                                    duration: 4,
-                                    repeat: Infinity,
-                                    ease: "easeInOut"
-                                }}
-                            >
-                                <div className="w-full h-full bg-[#1e1b4b] rounded-2xl flex items-center justify-center backdrop-blur-xl">
-                                    <Server className="w-10 h-10 text-[#a78bfa]" />
-                                </div>
-                            </motion.div>
+                            {/* Icon Box — 3D tilt on hover */}
+                            <TiltIcon />
+
 
                             {/* Badge */}
                             <div className="px-4 py-1.5 rounded-full bg-[#1a103c] border border-[#a78bfa]/30 flex items-center gap-2">
