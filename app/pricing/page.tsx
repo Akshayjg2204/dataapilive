@@ -8,14 +8,14 @@ export default function PricingPage() {
     const [billingCycle, setBillingCycle] = useState<'monthly' | 'annual'>('monthly');
 
     return (
-        <main className="min-h-screen bg-[#0a051e] text-white pt-32 pb-20">
-            <div className="max-w-[1200px] mx-auto px-6 relative z-10 text-center">
+        <main className="min-h-screen bg-[#0a051e] text-white pt-32 pb-20 overflow-x-hidden w-full max-w-[100vw]">
+            <div className="max-w-[1200px] mx-auto px-6 relative z-10 text-center overflow-x-hidden">
 
                 {/* Background Glow */}
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-[#8b5cf6]/20 rounded-full blur-[120px] pointer-events-none -z-10" />
+                <div className="absolute top-0 left-0 right-0 mx-auto w-[min(600px,100vw)] h-[600px] bg-[#8b5cf6]/20 rounded-full blur-[120px] pointer-events-none -z-10" />
 
                 {/* Headline */}
-                <h1 className="text-6xl md:text-8xl font-extrabold mb-8 tracking-tight leading-tight" data-aos="fade-up">
+                <h1 className="text-5xl sm:text-6xl md:text-8xl font-extrabold mb-8 tracking-tight leading-tight" data-aos="fade-up">
                     Simple, Transparent <br />
                     <span className="bg-gradient-to-r from-[#8b5cf6] to-[#a78bfa] bg-clip-text text-transparent">
                         Pricing
@@ -33,7 +33,7 @@ export default function PricingPage() {
                         {/* Monthly Button */}
                         <button
                             onClick={() => setBillingCycle('monthly')}
-                            className={`relative z-10 px-10 py-4 rounded-full text-base font-bold transition-all duration-300 focus:outline-none ${billingCycle === 'monthly' ? 'text-white' : 'text-gray-400 hover:text-white'
+                            className={`relative z-10 px-6 sm:px-10 py-4 rounded-full text-base font-bold transition-all duration-300 focus:outline-none ${billingCycle === 'monthly' ? 'text-white' : 'text-gray-400 hover:text-white'
                                 }`}
                         >
                             Monthly
@@ -50,7 +50,7 @@ export default function PricingPage() {
                         {/* Annual Button */}
                         <button
                             onClick={() => setBillingCycle('annual')}
-                            className={`relative z-10 px-10 py-4 rounded-full text-base font-bold transition-all duration-300 focus:outline-none flex items-center gap-3 ${billingCycle === 'annual' ? 'text-white' : 'text-gray-400 hover:text-white'
+                            className={`relative z-10 px-6 sm:px-10 py-4 rounded-full text-base font-bold transition-all duration-300 focus:outline-none flex items-center gap-2 sm:gap-3 ${billingCycle === 'annual' ? 'text-white' : 'text-gray-400 hover:text-white'
                                 }`}
                         >
                             Annual

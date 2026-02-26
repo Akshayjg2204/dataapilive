@@ -29,7 +29,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.variable} ${jetbrainsMono.variable} antialiased bg-[#130a32] text-white`}
+        className={`${inter.variable} ${jetbrainsMono.variable} antialiased bg-[#130a32] text-white overflow-x-hidden`}
       >
         <AOSInit />
         <SmoothScroll />

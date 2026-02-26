@@ -9,6 +9,8 @@ interface PricingTiersProps {
 }
 
 export default function PricingTiers({ billingCycle }: PricingTiersProps) {
+    const [activeCard, setActiveCard] = React.useState<number | null>(null);
+    const [activeFeature, setActiveFeature] = React.useState<string | null>(null);
     const calculatePrice = (monthlyPrice: number) => {
         if (billingCycle === 'annual') {
             return Math.floor(monthlyPrice * 0.8);
@@ -22,18 +24,34 @@ export default function PricingTiers({ billingCycle }: PricingTiersProps) {
         <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-[#8b5cf6]/30 to-transparent pointer-events-none" />
     );
 
-    // Reusable Feature Item Component with Hover Animation
-    const FeatureItem = ({ text }: { text: string }) => (
-        <div className="group/item relative flex items-center gap-3 p-3 rounded-lg bg-[#1e103f] border border-[#2e1065]/50 overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:border-[#8b5cf6]/30 hover:bg-[#251b4f]">
-            {/* Glowing Side Line */}
-            <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#8b5cf6] shadow-[0_0_15px_rgba(139,92,246,0.8)] opacity-0 group-hover/item:opacity-100 transition-opacity duration-300" />
+    // Reusable Feature Item Component with Hover Animation or Click State
+    const FeatureItem = ({ text, cardIndex }: { text: string; cardIndex: number }) => {
+        const featureId = `${cardIndex}-${text}`;
+        const isActive = activeFeature === featureId;
 
-            <div className="w-5 h-5 rounded-full bg-[#3b1c6d] flex items-center justify-center flex-shrink-0 group-hover/item:bg-[#8b5cf6] transition-colors duration-300">
-                <Check className="w-3 h-3 text-[#a78bfa] group-hover/item:text-white transition-colors duration-300" />
-            </div>
-            <span className="text-gray-300 text-xs font-medium group-hover/item:text-white transition-colors duration-300">{text}</span>
-        </div>
-    );
+        const handleFeatureClick = (e: React.MouseEvent) => {
+            e.stopPropagation(); // Prevent card click
+            setActiveFeature(isActive ? null : featureId);
+        };
+
+        return (
+            <motion.div
+                onClick={handleFeatureClick}
+                initial={{ y: 0, scale: 1, borderColor: "rgba(46,16,101,0.5)", backgroundColor: "#1e103f", borderWidth: "1px", borderStyle: "solid" }}
+                animate={isActive ? { y: -4, scale: 1.02, borderColor: "rgba(139,92,246,0.5)", backgroundColor: "#251b4f" } : { y: 0, scale: 1, borderColor: "rgba(46,16,101,0.5)", backgroundColor: "#1e103f" }}
+                transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                className={`group/item relative flex items-center gap-3 p-3 rounded-lg overflow-hidden cursor-pointer lg:hover:-translate-y-1 lg:hover:border-[#8b5cf6]/30 lg:hover:bg-[#251b4f]`}
+            >
+                {/* Glowing Side Line */}
+                <div className={`absolute left-0 top-0 bottom-0 w-1 bg-[#8b5cf6] shadow-[0_0_15px_rgba(139,92,246,0.8)] transition-opacity duration-300 ${isActive ? "opacity-100" : "opacity-0 lg:group-hover/item:opacity-100"}`} />
+
+                <div className={`w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 transition-colors duration-300 ${isActive ? "bg-[#8b5cf6]" : "bg-[#3b1c6d] lg:group-hover/item:bg-[#8b5cf6]"}`}>
+                    <Check className={`w-3 h-3 transition-colors duration-300 ${isActive ? "text-white" : "text-[#a78bfa] lg:group-hover/item:text-white"}`} />
+                </div>
+                <span className={`text-xs font-medium transition-colors duration-300 ${isActive ? "text-white" : "text-gray-300 lg:group-hover/item:text-white"}`}>{text}</span>
+            </motion.div>
+        );
+    };
 
     return (
         <section className="pb-32 relative z-10">
@@ -41,11 +59,12 @@ export default function PricingTiers({ billingCycle }: PricingTiersProps) {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
 
                     {/* Starter Plan */}
-                    <div className="relative group/card">
+                    <div className="relative group/card cursor-pointer" onClick={() => { setActiveCard(activeCard === 0 ? null : 0); setActiveFeature(null); }}>
                         <motion.div
+                            animate={{ y: activeCard === 0 ? -8 : 0 }}
                             whileHover={{ y: -8 }}
                             transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                            className={cardClasses}
+                            className={`${cardClasses} ${activeCard === 0 ? "shadow-[inset_0_0_100px_rgba(139,92,246,0.6)]" : "shadow-[inset_0_0_50px_rgba(139,92,246,0.3)] lg:hover:shadow-[inset_0_0_100px_rgba(139,92,246,0.6)]"}`}
                         >
                             {topGlow}
 
@@ -57,9 +76,9 @@ export default function PricingTiers({ billingCycle }: PricingTiersProps) {
                             </div>
 
                             <div className="mb-8 text-center border-b border-[#2e1065] pb-8 mx-4">
-                                <div className="flex items-start justify-center gap-1 group-hover/card:scale-105 transition-transform duration-300 text-center">
+                                <div className={`flex items-start justify-center gap-1 transition-transform duration-300 text-center ${activeCard === 0 ? "scale-105" : "lg:group-hover/card:scale-105"}`}>
                                     <span className="text-3xl font-bold text-[#8b5cf6] mt-2">$</span>
-                                    <span className="text-7xl font-extrabold text-white tracking-tighter">
+                                    <span className="text-6xl md:text-7xl font-extrabold text-white tracking-tighter">
                                         {calculatePrice(49)}
                                     </span>
                                     <span className="text-gray-400 self-end mb-2">/month</span>
@@ -81,14 +100,14 @@ export default function PricingTiers({ billingCycle }: PricingTiersProps) {
                                     "Standard rate limits",
                                     "Community access"
                                 ].map((feature, i) => (
-                                    <FeatureItem key={i} text={feature} />
+                                    <FeatureItem key={i} text={feature} cardIndex={0} />
                                 ))}
                             </div>
                         </motion.div>
                     </div>
 
                     {/* Professional Plan */}
-                    <div className="relative text-center group/card">
+                    <div className="relative text-center group/card cursor-pointer" onClick={() => { setActiveCard(activeCard === 1 ? null : 1); setActiveFeature(null); }}>
                         <div className="relative inline-block w-full h-full">
                             {/* Most Popular Badge - Floating above */}
                             <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30">
@@ -98,9 +117,10 @@ export default function PricingTiers({ billingCycle }: PricingTiersProps) {
                             </div>
 
                             <motion.div
+                                animate={{ y: activeCard === 1 ? -8 : 0 }}
                                 whileHover={{ y: -8 }}
                                 transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                                className={cardClasses}
+                                className={`${cardClasses} ${activeCard === 1 ? "shadow-[inset_0_0_100px_rgba(139,92,246,0.6)]" : "shadow-[inset_0_0_50px_rgba(139,92,246,0.3)] lg:hover:shadow-[inset_0_0_100px_rgba(139,92,246,0.6)]"}`}
                             >
                                 {topGlow}
 
@@ -112,9 +132,9 @@ export default function PricingTiers({ billingCycle }: PricingTiersProps) {
                                 </div>
 
                                 <div className="mb-8 text-center border-b border-[#2e1065] pb-8 mx-4">
-                                    <div className="flex items-start justify-center gap-1 group-hover/card:scale-105 transition-transform duration-300 text-center">
+                                    <div className={`flex items-start justify-center gap-1 transition-transform duration-300 text-center ${activeCard === 1 ? "scale-105" : "lg:group-hover/card:scale-105"}`}>
                                         <span className="text-3xl font-bold text-[#8b5cf6] mt-2">$</span>
-                                        <span className="text-8xl font-extrabold text-white tracking-tighter">
+                                        <span className="text-7xl md:text-8xl font-extrabold text-white tracking-tighter">
                                             {calculatePrice(199)}
                                         </span>
                                         <span className="text-gray-400 self-end mb-2">/month</span>
@@ -138,7 +158,7 @@ export default function PricingTiers({ billingCycle }: PricingTiersProps) {
                                         "Analytics dashboard",
                                         "Custom extraction rules"
                                     ].map((feature, i) => (
-                                        <FeatureItem key={i} text={feature} />
+                                        <FeatureItem key={i} text={feature} cardIndex={1} />
                                     ))}
                                 </div>
                             </motion.div>
@@ -146,11 +166,12 @@ export default function PricingTiers({ billingCycle }: PricingTiersProps) {
                     </div>
 
                     {/* Enterprise Plan */}
-                    <div className="relative group/card">
+                    <div className="relative group/card cursor-pointer" onClick={() => { setActiveCard(activeCard === 2 ? null : 2); setActiveFeature(null); }}>
                         <motion.div
+                            animate={{ y: activeCard === 2 ? -8 : 0 }}
                             whileHover={{ y: -8 }}
                             transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                            className={cardClasses}
+                            className={`${cardClasses} ${activeCard === 2 ? "shadow-[inset_0_0_100px_rgba(139,92,246,0.6)]" : "shadow-[inset_0_0_50px_rgba(139,92,246,0.3)] lg:hover:shadow-[inset_0_0_100px_rgba(139,92,246,0.6)]"}`}
                         >
                             {topGlow}
 
@@ -162,7 +183,7 @@ export default function PricingTiers({ billingCycle }: PricingTiersProps) {
                             </div>
 
                             <div className="mb-8 text-center flex flex-col justify-center h-[120px] border-b border-[#2e1065] pb-8 mx-4">
-                                <span className="text-6xl font-extrabold text-[#a78bfa] tracking-tight">
+                                <span className="text-5xl md:text-6xl font-extrabold text-[#a78bfa] tracking-tight">
                                     Custom
                                 </span>
                             </div>
@@ -187,7 +208,7 @@ export default function PricingTiers({ billingCycle }: PricingTiersProps) {
                                     "Advanced analytics",
                                     "White-label options"
                                 ].map((feature, i) => (
-                                    <FeatureItem key={i} text={feature} />
+                                    <FeatureItem key={i} text={feature} cardIndex={2} />
                                 ))}
                             </div>
                         </motion.div>

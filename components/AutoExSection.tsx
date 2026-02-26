@@ -7,16 +7,27 @@ import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 /** 3-D tilt icon: tracks mouse position → rotateX / rotateY via spring physics.
  *  The outer motion.div handles the floating bob; the inner wrapper handles the tilt.
  */
-function TiltIcon() {
+function TiltIcon({ forceTilt = false }: { forceTilt?: boolean }) {
     const ref = useRef<HTMLDivElement>(null);
 
     const rawX = useMotionValue(0);
     const rawY = useMotionValue(0);
 
+    React.useEffect(() => {
+        if (forceTilt) {
+            rawX.set(0.5); // rotateY -> 18
+            rawY.set(-0.5); // rotateX -> 18
+        } else {
+            rawX.set(0);
+            rawY.set(0);
+        }
+    }, [forceTilt, rawX, rawY]);
+
     const rotateX = useSpring(useTransform(rawY, [-0.5, 0.5], [18, -18]), { stiffness: 300, damping: 30 });
     const rotateY = useSpring(useTransform(rawX, [-0.5, 0.5], [-18, 18]), { stiffness: 300, damping: 30 });
 
     const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+        if (forceTilt) return;
         const el = ref.current;
         if (!el) return;
         const { left, top, width, height } = el.getBoundingClientRect();
@@ -25,6 +36,7 @@ function TiltIcon() {
     };
 
     const handleMouseLeave = () => {
+        if (forceTilt) return;
         rawX.set(0);
         rawY.set(0);
     };
@@ -62,6 +74,7 @@ function TiltIcon() {
 
 export default function AutoExSection() {
     const [activeIndex, setActiveIndex] = React.useState<number | null>(null);
+    const [iconTilted, setIconTilted] = React.useState(false);
 
 
     const handleInteraction = (index: number) => {
@@ -74,10 +87,14 @@ export default function AutoExSection() {
                 <div className="flex flex-col lg:flex-row gap-16 lg:gap-24">
 
                     {/* Left Column: Product Info */}
-                    <div className="w-full lg:w-1/2" data-aos="fade-right">
+                    <div
+                        className="w-full lg:w-1/2"
+                        data-aos="fade-right"
+                        onClick={() => setIconTilted(p => !p)}
+                    >
                         <div className="flex items-center gap-6 mb-8">
                             {/* Icon Box — 3D tilt on hover */}
-                            <TiltIcon />
+                            <TiltIcon forceTilt={iconTilted} />
 
 
                             {/* Badge */}

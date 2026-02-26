@@ -7,11 +7,19 @@ import { motion } from "framer-motion";
 const featureVariants = {
     initial: { scale: 1, x: 0 },
     active: { scale: 1.02, x: 5 },
+    hover: { scale: 1.02, x: 5 },
 };
 
 const borderAccentVariants = {
     initial: { opacity: 0, scaleY: 0 },
     active: { opacity: 1, scaleY: 1 },
+    hover: { opacity: 1, scaleY: 1 },
+};
+
+const checkVariants = {
+    initial: { rotate: 0 },
+    active: { rotate: 360 },
+    hover: { rotate: 360 },
 };
 
 export default function ManagedServicesSection() {
@@ -28,12 +36,15 @@ export default function ManagedServicesSection() {
                 <div className="flex flex-col lg:flex-row gap-16 lg:gap-24 items-center">
 
                     {/* Left Column: Info & Icon */}
-                    <div className="w-full lg:w-1/2 order-1 lg:order-1" data-aos="fade-right">
+                    <div
+                        className="w-full lg:w-1/2 order-1 lg:order-1"
+                        data-aos="fade-right"
+                        onClick={() => setIconTilted(p => !p)}
+                    >
                         <div className="mb-8">
                             {/* Icon Box — toggle on tap */}
                             <motion.div
                                 className="w-20 h-20 rounded-2xl bg-gradient-to-br from-[#2e1065] to-[#4c1d95] p-[1px] mb-8 relative z-10 shadow-lg cursor-pointer"
-                                onClick={() => setIconTilted(p => !p)}
                                 animate={iconTilted
                                     ? { rotate: -12, scale: 1.1, boxShadow: "0 0 50px rgba(139, 92, 246, 0.5)" }
                                     : { rotate: 0, scale: 1, boxShadow: "0 10px 15px -3px rgba(0,0,0,0.1)" }
@@ -89,12 +100,13 @@ export default function ManagedServicesSection() {
                                 return (
                                     <motion.div
                                         key={index}
-                                        className={`p-4 rounded-xl border flex items-center gap-4 cursor-pointer relative overflow-hidden transition-colors ${isActive
+                                        className={`group p-4 rounded-xl border flex items-center gap-4 cursor-pointer relative overflow-hidden transition-colors ${isActive
                                             ? "bg-[#21183c] border-[rgba(139,92,246,0.5)] shadow-[0_0_20px_rgba(139,92,246,0.1)]"
                                             : "bg-[#21183c]/50 border-[rgba(139,92,246,0.1)] hover:bg-[#21183c] hover:border-[rgba(139,92,246,0.3)]"
                                             }`}
                                         onClick={() => handleInteraction(index)}
                                         animate={isActive ? "active" : "initial"}
+                                        whileHover="hover"
                                         whileTap={{ scale: 0.98 }}
                                         variants={featureVariants}
                                         transition={{ type: "spring", stiffness: 300, damping: 20 }}
@@ -104,10 +116,14 @@ export default function ManagedServicesSection() {
                                             variants={borderAccentVariants}
                                             transition={{ duration: 0.3 }}
                                         />
-                                        <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 z-10 transition-colors ${isActive ? "bg-[#8b5cf6]/20" : "bg-[#1a103c]"}`}>
-                                            <Check className={`w-4 h-4 transition-colors ${isActive ? "text-[#8b5cf6]" : "text-[#a78bfa]"}`} />
-                                        </div>
-                                        <span className={`font-medium transition-colors z-10 ${isActive ? "text-white" : "text-gray-300"}`}>{feature}</span>
+                                        <motion.div
+                                            className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 z-10 transition-colors ${isActive ? "bg-[#8b5cf6]/20" : "bg-[#1a103c] group-hover:bg-[#8b5cf6]/20"}`}
+                                            variants={checkVariants}
+                                            transition={{ duration: 0.5, ease: "easeInOut" }}
+                                        >
+                                            <Check className={`w-4 h-4 transition-colors ${isActive ? "text-[#8b5cf6]" : "text-[#a78bfa] group-hover:text-[#8b5cf6]"}`} />
+                                        </motion.div>
+                                        <span className={`font-medium transition-colors z-10 ${isActive ? "text-white" : "text-gray-300 group-hover:text-white"}`}>{feature}</span>
 
                                         {isActive && (
                                             <motion.div

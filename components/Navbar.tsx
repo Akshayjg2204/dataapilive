@@ -229,17 +229,17 @@ export default function Navbar() {
     return (
         <>
             <nav className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-[rgba(15,7,40,0.95)] border-b border-[var(--homepage-border-light)]">
-                <div className="max-w-[1400px] mx-auto px-6 md:px-12 h-[85px] flex items-center justify-between">
+                <div className="max-w-[1400px] mx-auto px-4 md:px-12 h-[75px] md:h-[85px] flex items-center justify-between">
                     {/* Logo */}
-                    <Link href="/" className="flex items-center gap-3 group">
-                        <div className="relative w-10 h-10">
+                    <Link href="/" className="flex items-center gap-2 md:gap-3 group shrink-0">
+                        <div className="relative w-8 h-8 md:w-10 md:h-10">
                             <img
                                 src="https://res.cloudinary.com/dffu1ungl/image/upload/v1759645205/Data_API_Logo_u4xvkl.png"
                                 alt="DataAPI Logo"
                                 className="w-full h-full object-contain filter drop-shadow-[0_0_10px_rgba(139,92,246,0.3)] transition-transform duration-300 group-hover:scale-110"
                             />
                         </div>
-                        <span className="text-2xl font-bold bg-gradient-to-r from-[var(--homepage-primary)] to-[var(--homepage-accent)] bg-clip-text text-transparent group-hover:tracking-wider transition-all duration-300">
+                        <span className="text-xl md:text-2xl font-bold bg-gradient-to-r from-[var(--homepage-primary)] to-[var(--homepage-accent)] bg-clip-text text-transparent group-hover:tracking-wider transition-all duration-300">
                             DataAPI
                         </span>
                     </Link>
@@ -251,8 +251,8 @@ export default function Navbar() {
                                 key={item}
                                 href={getHref(item)}
                                 className={`relative px-5 py-2.5 text-sm font-semibold rounded-xl transition-all duration-300 ${isActive(item)
-                                        ? "text-white shadow-[0_2px_8px_rgba(89,25,145,0.2)]"
-                                        : "text-[var(--homepage-text-secondary)] hover:text-white"
+                                    ? "text-white shadow-[0_2px_8px_rgba(89,25,145,0.2)]"
+                                    : "text-[var(--homepage-text-secondary)] hover:text-white"
                                     }`}
                             >
                                 {isActive(item) && (
@@ -268,10 +268,10 @@ export default function Navbar() {
                     </div>
 
                     {/* Right Actions */}
-                    <div className="flex items-center gap-4">
-                        <button className="flex items-center gap-2 p-1 bg-[#1a1a2e] border border-[var(--homepage-border-light)] rounded-full w-[56px] h-[28px] relative">
-                            <div className="w-5 h-5 bg-gradient-to-br from-white to-gray-300 rounded-full shadow-md ml-0.5" />
-                            <Moon className="w-4 h-4 text-[#a78bfa] absolute right-1.5" />
+                    <div className="flex items-center gap-2 md:gap-4 shrink-0">
+                        <button className="flex items-center gap-2 p-1 bg-[#1a1a2e] border border-[var(--homepage-border-light)] rounded-full w-[48px] h-[24px] md:w-[56px] md:h-[28px] relative">
+                            <div className="w-4 h-4 md:w-5 md:h-5 bg-gradient-to-br from-white to-gray-300 rounded-full shadow-md ml-0.5" />
+                            <Moon className="w-3 h-3 md:w-4 md:h-4 text-[#a78bfa] absolute right-1.5" />
                         </button>
 
                         <Link
@@ -290,11 +290,11 @@ export default function Navbar() {
 
                         {/* Mobile Menu Button */}
                         <button
-                            className="md:hidden p-2 text-white hover:text-[var(--homepage-primary)] transition-colors"
+                            className="md:hidden p-1 sm:p-2 text-white hover:text-[var(--homepage-primary)] transition-colors"
                             onClick={() => setIsMenuOpen(true)}
                             aria-label="Open menu"
                         >
-                            <Menu size={28} />
+                            <Menu size={24} className="sm:w-7 sm:h-7" />
                         </button>
                     </div>
                 </div>

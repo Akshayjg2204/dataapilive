@@ -202,26 +202,26 @@ export default function FAQSection() {
                                         return (
                                             <div
                                                 key={faqIndex}
-                                                className={`group relative rounded-2xl border transition-all duration-500 overflow-hidden hover:-translate-x-2 ${isActive
-                                                    ? 'bg-[#1a0f39] border-[#8b5cf6] shadow-[0_0_30px_rgba(139,92,246,0.3)]'
-                                                    : 'bg-[#1a0f39] border-[#2e1065] hover:border-[#8b5cf6] hover:shadow-[0_0_30px_rgba(139,92,246,0.15)]'
+                                                className={`group relative rounded-2xl border transition-all duration-500 overflow-hidden ${isActive
+                                                    ? 'bg-[#1a0f39] border-[#8b5cf6] shadow-[0_0_30px_rgba(139,92,246,0.3)] -translate-x-2'
+                                                    : 'bg-[#1a0f39] border-[#2e1065] lg:hover:border-[#8b5cf6] lg:hover:shadow-[0_0_30px_rgba(139,92,246,0.15)] lg:hover:-translate-x-2'
                                                     }`}
                                             >
                                                 {/* Center Glow Effect */}
-                                                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(139,92,246,0.15),transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+                                                <div className={`absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(139,92,246,0.15),transparent_70%)] transition-opacity duration-500 pointer-events-none ${isActive ? 'opacity-100' : 'opacity-0 lg:group-hover:opacity-100'}`} />
 
                                                 {/* Left Loading Line Animation */}
-                                                <div className="absolute left-0 top-0 w-[4px] bg-gradient-to-b from-[#8b5cf6] via-[#a78bfa] to-[#8b5cf6] h-0 group-hover:h-full transition-all duration-700 ease-in-out opacity-0 group-hover:opacity-100 shadow-[0_0_15px_rgba(139,92,246,0.8)]" />
+                                                <div className={`absolute left-0 top-0 w-[4px] bg-gradient-to-b from-[#8b5cf6] via-[#a78bfa] to-[#8b5cf6] transition-all duration-700 ease-in-out shadow-[0_0_15px_rgba(139,92,246,0.8)] ${isActive ? 'h-full opacity-100' : 'h-0 opacity-0 lg:group-hover:h-full lg:group-hover:opacity-100'}`} />
 
                                                 <button
                                                     onClick={() => toggleAccordion(catIndex, faqIndex)}
                                                     className="relative z-10 w-full flex items-center justify-between p-7 text-left focus:outline-none"
                                                 >
-                                                    <span className={`text-lg font-bold transition-colors duration-300 ${isActive ? 'text-white' : 'text-gray-300 group-hover:text-white'
+                                                    <span className={`text-lg font-bold transition-colors duration-300 ${isActive ? 'text-white' : 'text-gray-300 lg:group-hover:text-white'
                                                         }`}>
                                                         {faq.q}
                                                     </span>
-                                                    <div className={`p-2 rounded-full transition-all duration-300 ${isActive ? 'bg-[#8b5cf6]/20 text-[#a78bfa]' : 'bg-[#1e103f] text-gray-400 group-hover:bg-[#8b5cf6]/20 group-hover:text-white'
+                                                    <div className={`p-2 rounded-full transition-all duration-300 ${isActive ? 'bg-[#8b5cf6]/20 text-[#a78bfa]' : 'bg-[#1e103f] text-gray-400 lg:group-hover:bg-[#8b5cf6]/20 lg:group-hover:text-white'
                                                         }`}>
                                                         {isActive ? <Minus className="w-5 h-5" /> : <Plus className="w-5 h-5" />}
                                                     </div>
