@@ -17,9 +17,9 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "DataAPI — Intelligent Web Data Extraction API",
+  title: "DataAPI — Intelligent Web Data Extraction Platform (Frontend Demo)",
   description:
-    "Extract structured data from any website automatically with our intelligent AutoEx technology. No selectors, no maintenance — just clean JSON at scale.",
+    "Interactive frontend demo showcase for an intelligent web data extraction API platform. Extract structured data automatically with AutoEx technology.",
   authors: [{ name: "Akshay Gaikwad", url: "https://stream-line.dev/" }],
   keywords: [
     "web scraping",
@@ -29,12 +29,13 @@ export const metadata: Metadata = {
     "Next.js",
     "structured data",
     "JSON",
+    "frontend demo",
     "automation",
   ],
   openGraph: {
-    title: "DataAPI — Intelligent Web Data Extraction API",
+    title: "DataAPI — Intelligent Web Data Extraction Platform (Frontend Demo)",
     description:
-      "Extract structured data from any website automatically with AutoEx technology. Clean JSON at scale — no selectors, no maintenance.",
+      "Interactive frontend demo showcase for an intelligent web data extraction API platform with AutoEx technology.",
     url: "https://dataapilive1.netlify.app/",
     siteName: "DataAPI",
     images: [
@@ -49,9 +50,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "DataAPI — Intelligent Web Data Extraction API",
+    title: "DataAPI — Intelligent Web Data Extraction Platform (Frontend Demo)",
     description:
-      "Extract structured data from any website automatically with AutoEx technology.",
+      "Interactive frontend demo showcase for an intelligent web data extraction API platform with AutoEx technology.",
     images: ["/preview.png"],
   },
 };

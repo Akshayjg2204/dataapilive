@@ -1,8 +1,8 @@
-# ⚡ DataAPI — Intelligent Web Data Extraction Platform
+# ⚡ DataAPI — Web Data Extraction Platform (Frontend Demo)
 
 <div align="center">
   <p align="center">
-    <b>Auto-scrape any website into clean, structured JSON with AutoEx AI technology.</b><br>
+    <b>An interactive frontend demo showcase for an intelligent web data extraction API platform.</b><br>
     Engineered with Next.js 16, React 19, Framer Motion, Lenis smooth scrolling, and Tailwind CSS v4.
   </p>
 

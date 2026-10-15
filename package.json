@@ -2,7 +2,7 @@
   "name": "dataapilive",
   "version": "1.0.0",
   "private": false,
-  "description": "Intelligent web data extraction API platform — auto-scrape any website into structured JSON with AutoEx technology.",
+  "description": "DataAPI — Interactive frontend demo showcase for an intelligent web data extraction API platform with AutoEx technology.",
   "author": {
     "name": "Akshay Gaikwad",
     "url": "https://stream-line.dev/"
