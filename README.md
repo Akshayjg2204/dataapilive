@@ -24,6 +24,21 @@
 
 ---
 
+## 🎥 Platform Walkthrough & Interaction Preview
+
+<div align="center">
+  <a href="https://dataapilive1.netlify.app/">
+    <img src="./public/dataapi_walkthrough.gif" alt="DataAPI Platform & Interactive Demo Preview" width="100%" style="border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.35);" />
+  </a>
+  <p align="center">
+    <sub><b>✨ Autoplaying preview of AutoEx interactive console, live API simulation, and smooth scroll dynamics.</b></sub><br>
+    <b><a href="https://dataapilive1.netlify.app/">🚀 Launch Live Web App</a></b> &nbsp;•&nbsp; 
+    <b><a href="./public/demo.mp4">📥 Download / Watch Full 60 FPS HD Video (MP4)</a></b>
+  </p>
+</div>
+
+---
+
 ## ✨ Design & Engineering Highlights
 
 - **🤖 AutoEx Technology Showcase:** Animated interactive demo console that simulates live API calls and streams structured JSON responses to the viewport in real time.
