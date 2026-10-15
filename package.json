@@ -1,7 +1,28 @@
 {
   "name": "dataapilive",
-  "version": "0.1.0",
-  "private": true,
+  "version": "1.0.0",
+  "private": false,
+  "description": "Intelligent web data extraction API platform — auto-scrape any website into structured JSON with AutoEx technology.",
+  "author": {
+    "name": "Akshay Gaikwad",
+    "url": "https://stream-line.dev/"
+  },
+  "homepage": "https://dataapilive1.netlify.app/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Akshayjg2204/dataapilive.git"
+  },
+  "keywords": [
+    "web-scraping",
+    "data-extraction",
+    "api",
+    "nextjs",
+    "react",
+    "typescript",
+    "tailwindcss",
+    "framer-motion",
+    "autoex"
+  ],
   "scripts": {
     "dev": "next dev",
     "build": "next build",
